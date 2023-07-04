@@ -1,0 +1,25 @@
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+# admin2check
+
+<!-- badges: start -->
+<!-- badges: end -->
+
+The goal of admin2check is to perform basic data quality assurance based
+on the global GIS webservices for admin 2 level
+
+## Installation
+
+You can install the development version of admin2check like so:
+
+    install.packages("pak")
+    pak::pkg_install(""Edouard-Legoupil/admin2check")
+
+## Example
+
+This is a basic example which shows you how to solve a common problem:
+
+    library(admin2check)
+    ## basic example code
+    GTM <- f_get_admin2_boundaries(ISO3 = "GTM", simplify = TRUE, dTolerance = 500)

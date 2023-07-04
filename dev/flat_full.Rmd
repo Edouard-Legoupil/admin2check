@@ -1,0 +1,207 @@
+---
+title: "Development"
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
+
+<!-- Run this 'development' chunk -->
+<!-- Store every call to library() that you need to explore your functions -->
+
+```{r development, include=FALSE}
+library(testthat)
+```
+
+
+```{r development-load}
+# Load already included functions if relevant
+pkgload::load_all(export_all = FALSE)
+```
+
+
+
+# f_get_admin2_boundaries
+    
+```{r function-f_get_admin2_boundaries}
+#' Get admin2 polygons from API
+#'
+#' Queries the gis.unhcr.org sever to return admin2 shape files for a specific
+#' country. Some of the files returned are heavy, and the server also seems to
+#' fail or time out every now and then. Also, some admin2 codes are not in the
+#' expected format.
+#'
+#' @param ISO3 ISO3 code of country
+#' @param simplify Logical: whether to simplify or not
+#' @param dTolerance parameter passed to [sf::st_simplify()]
+#' 
+#' @importFrom httr GET
+#' @importFrom sf st_read st_simplify
+#' @import countrycode 
+#'
+#' @return sf object
+#' @export
+f_get_admin2_boundaries <- function(ISO3, simplify = TRUE, dTolerance = 500){
+
+  stopifnot(ISO3 %in% countrycode::codelist$iso3c)
+
+  # generate query string
+  # from: https://gis.unhcr.org/arcgis/rest/services/core_v2/wrl_polbnd_adm2_a_unhcr/MapServer/0/query
+  api_query <- paste0(
+    "https://gis.unhcr.org/arcgis/rest/services/core_v2/wrl_polbnd_adm2_a_unhcr/",
+    "MapServer/0/query?where=ISO3+%3D+%27",
+     ISO3,
+    "%27&text=&objectIds=&time=&geometry=",
+    "&geometryType=esriGeometryEnvelope&inSR=&spatialRel=esriSpatialRelIntersects",
+    "&distance=&units=esriSRUnit_Foot&relationParam=",
+    "&outFields=pcode%2C+adm1_source_code%2C+adm2_source_code%2C+gis_name%2C+gis_status&returnGeometry=true&",
+    "returnTrueCurves=false&maxAllowableOffset=&geometryPrecision=&outSR=&",
+    "havingClause=&returnIdsOnly=false&returnCountOnly=false&orderByFields=&",
+    "groupByFieldsForStatistics=&outStatistics=&returnZ=false&returnM=false&",
+    "gdbVersion=&historicMoment=&returnDistinctValues=false&resultOffset=",
+    "&resultRecordCount=&returnExtentOnly=false&datumTransformation=&",
+    "parameterValues=&rangeValues=&quantizationParameters=&featureEncoding=esriDefault&f=geojson")
+
+  # read and create feature table
+  message("Fetching geometry for ", ISO3, "........")
+   resp <- httr::GET(api_query)
+  
+
+  if (httr::http_error(resp)) {
+      stop(
+        sprintf(
+          "ArcGIS request failed [%s]\n%s\n<%s>", 
+          status_code(resp),
+          parsed$message,
+          parsed$documentation_url
+        ),
+        call. = FALSE
+      )
+    } else if ( httr::http_type(resp) != "application/geo+json") {
+    return("API did not return geojson", call. = FALSE) 
+    } else { cat("Geojson retrieved! \n ")}
+   
+  ### Now checking that the geojson can be read... 
+  rm(df_geom) 
+  tryCatch(
+        #try to do this
+        {
+        #some expression
+        df_geom <- sf::st_read(resp, quiet = TRUE)
+        },
+        #if an error occurs, tell me the error
+        error=function(e) {
+            message('An Error Occurred')
+            return(e)
+        }
+     )
+  
+  ## in case we got something then start QA -
+  if ( exists(df_geom)){
+  
+    if(any(is.na(df_geom$gis_name))){
+      warning("NAs found in gis_name for: ", ISO3)
+    }
+    
+    if(anyDuplicated(df_geom$gis_name) > 0 ){
+      cat( paste0( anyDuplicated(df_geom$gis_name), " duplicated in gis_name for: ", ISO3) )
+      t <- df_geom[ duplicated(df_geom$gis_name), c("gis_name")]  
+      }
+  
+    if(any(is.na(df_geom$adm2_source_code))){
+      warning("NAs found in adm2_source_code for: ", ISO3)
+    }
+    
+    if(anyDuplicated(df_geom$adm2_source_code) > 0 ){
+      cat( paste0( anyDuplicated(df_geom$adm2_source_code), " duplicated in adm2_source_code for: ", ISO3) )
+    }
+    
+    if(any(is.na(df_geom$pcode))){
+      warning("NAs found in pcode for: ", ISO3)
+    }
+    
+    if(anyDuplicated(df_geom$pcode) > 0 ){
+      cat( paste0( anyDuplicated(df_geom$pcode), " duplicated in pcode for: ", ISO3) )
+    }
+    
+    ## Check if the pcode include isocode 2 letters, or iso code 2 letters
+     
+     
+  ### Checking if simplification works
+  if(simplify){
+    ## Check that simplification work
+      tryCatch(
+        #try to do this
+        {
+        #some expression
+        df_geom <- sf::st_simplify(df_geom, 
+                               preserveTopology = TRUE, 
+                               dTolerance = dTolerance)
+        },
+        #if an error occurs, tell me the error
+        error=function(e) {
+            message('An Error Occurred')
+            print(e)
+        },
+        #if a warning occurs, tell me the warning
+        warning=function(w) {
+            message('A Warning Occurred')
+            print(w)
+            return(NA)
+        }
+     )
+    
+    
+    
+  } else { cat("No simplification was requested ")   }
+  
+  return(df_geom)
+  }  
+
+
+}
+
+```
+  
+```{r example-f_get_admin2_boundaries}
+## The test is actually the QA process! 
+library(countrycode)
+ctr <- countrycode::codelist |>
+       dplyr::filter( ! is.na(iso3c) )  |>
+       dplyr::filter(continent == "Americas" ) |>
+       dplyr::select(country.name.en, iso3c)
+ctr
+ctr <- ctr |>
+       dplyr::select(iso3c)  |>
+       dplyr::pull()  
+
+
+# 
+BRA <- f_get_admin2_boundaries(ISO3 = "BRA", simplify = TRUE, dTolerance = 500)
+ECU <- f_get_admin2_boundaries(ISO3 = "ECU", simplify = TRUE, dTolerance = 500)
+GTM <- f_get_admin2_boundaries(ISO3 = "GTM", simplify = TRUE, dTolerance = 500)
+CRI <- f_get_admin2_boundaries(ISO3 = "CRI", simplify = TRUE, dTolerance = 500)
+CHL <- f_get_admin2_boundaries(ISO3 = "CHL", simplify = TRUE, dTolerance = 500)
+COL <- f_get_admin2_boundaries(ISO3 = "COL", simplify = TRUE, dTolerance = 500)
+MEX <- f_get_admin2_boundaries(ISO3 = "MEX", simplify = TRUE, dTolerance = 500)
+
+
+for ( code  in ctr )
+ { t <- f_get_admin2_boundaries(ISO3 = code, simplify = TRUE, dTolerance = 500) }
+```
+  
+```{r tests-f_get_admin2_boundaries}
+test_that("f_get_admin2_boundaries works", {
+  expect_true(inherits(f_get_admin2_boundaries, "function")) 
+})
+```
+
+
+
+
+```{r development-inflate, eval=FALSE}
+# Keep eval=FALSE to avoid infinite loop in case you hit the knit button
+# Execute in the console directly
+fusen::inflate(flat_file = "dev/flat_full.Rmd", vignette_name = "Get started")
+```
+
+

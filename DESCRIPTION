@@ -1,0 +1,24 @@
+Package: admin2check
+Title: Check Admin2 Polygons From ESRI Webservice
+Version: 0.0.0.9000
+Authors@R: c(
+    person("Edouard", "Legoupil", , "legoupil@unhcr.org", role = c("aut", "cre"),
+           comment = c(ORCID = "0000-0002-1565-9313")),
+    person("UNHCR", role = "cph")
+  )
+Description: Perform simple Quality Assurance on the content of the
+    webservice.
+License: MIT + file LICENSE
+Imports: 
+    countrycode,
+    sf
+Suggests: 
+    dplyr,
+    knitr,
+    rmarkdown,
+    testthat
+VignetteBuilder: 
+    knitr
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.2.3
