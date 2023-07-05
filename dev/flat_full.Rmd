@@ -37,127 +37,236 @@ pkgload::load_all(export_all = FALSE)
 #' @importFrom httr GET
 #' @importFrom sf st_read st_simplify
 #' @import countrycode 
+#' @import here
+#' @import ggplot2
 #'
 #' @return sf object
 #' @export
 f_get_admin2_boundaries <- function(ISO3, simplify = TRUE, dTolerance = 500){
 
   stopifnot(ISO3 %in% countrycode::codelist$iso3c)
-
   # generate query string
   # from: https://gis.unhcr.org/arcgis/rest/services/core_v2/wrl_polbnd_adm2_a_unhcr/MapServer/0/query
-  api_query <- paste0(
-    "https://gis.unhcr.org/arcgis/rest/services/core_v2/wrl_polbnd_adm2_a_unhcr/",
-    "MapServer/0/query?where=ISO3+%3D+%27",
+  
+   api_query <- paste0(
+  "https://gis.unhcr.org/arcgis/rest/services/core_v2/wrl_polbnd_adm2_a_unhcr/MapServer/0/",
+  "query?where=ISO3+%3D+%27",
      ISO3,
-    "%27&text=&objectIds=&time=&geometry=",
-    "&geometryType=esriGeometryEnvelope&inSR=&spatialRel=esriSpatialRelIntersects",
-    "&distance=&units=esriSRUnit_Foot&relationParam=",
-    "&outFields=pcode%2C+adm1_source_code%2C+adm2_source_code%2C+gis_name%2C+gis_status&returnGeometry=true&",
-    "returnTrueCurves=false&maxAllowableOffset=&geometryPrecision=&outSR=&",
-    "havingClause=&returnIdsOnly=false&returnCountOnly=false&orderByFields=&",
-    "groupByFieldsForStatistics=&outStatistics=&returnZ=false&returnM=false&",
-    "gdbVersion=&historicMoment=&returnDistinctValues=false&resultOffset=",
-    "&resultRecordCount=&returnExtentOnly=false&datumTransformation=&",
-    "parameterValues=&rangeValues=&quantizationParameters=&featureEncoding=esriDefault&f=geojson")
+  "%27&text=&",
+  "objectIds=&",
+  "time=&",
+  "geometry=&",
+  "geometryType=esriGeometryEnvelope&",
+  "inSR=&",
+  "spatialRel=esriSpatialRelIntersects&",
+  "distance=&",
+  "units=esriSRUnit_Foot&relationParam=&",
+  "outFields=*&",
+ # "&outFields=pcode%2C+adm2_source_code%2C+gis_name%2C&",
+  "returnGeometry=true&returnTrueCurves=false&",
+  "maxAllowableOffset=&",
+  "geometryPrecision=&",
+  "outSR=&havingClause=&",
+  "returnIdsOnly=false&",
+  "returnCountOnly=false&",
+  "orderByFields=&",
+  "groupByFieldsForStatistics=&",
+  "outStatistics=&",
+  "returnZ=false&",
+  "returnM=false&",
+  "gdbVersion=&",
+  "historicMoment=&",
+  "returnDistinctValues=false&",
+  "resultOffset=&",
+  "resultRecordCount=&",
+  "returnExtentOnly=false&",
+  "datumTransformation=&",
+  "parameterValues=&",
+  "rangeValues=&",
+  "quantizationParameters=&",
+  "featureEncoding=esriDefault&",
+  "f=geojson")
+
+  # api_query <- paste0(
+  #   "https://gis.unhcr.org/arcgis/rest/services/core_v2/wrl_polbnd_adm2_a_unhcr/",
+  #   "MapServer/0/query?where=ISO3+%3D+%27",
+  #    ISO3,
+  #   "%27&text=&objectIds=&time=&geometry=",
+  #   "&geometryType=esriGeometryEnvelope&inSR=&spatialRel=esriSpatialRelIntersects",
+  #   "&distance=&units=esriSRUnit_Foot&relationParam=",
+  #   "&outFields=pcode%2C+adm2_source_code%2C+gis_name%2C&",
+  # "returnGeometry=true&",
+  #  # "&outFields=pcode%2C+adm2_source_code%2C+gis_name%2C+gis_status%2C&returnGeometry=true&",
+  #   #"&outFields=pcode%2C+adm2_source_code%2C+gis_name%2C+adm1_source_code%2C+gis_status%2C&returnGeometry=true&",
+  #   "returnTrueCurves=false&maxAllowableOffset=&geometryPrecision=&outSR=&",
+  #   "havingClause=&returnIdsOnly=false&returnCountOnly=false&orderByFields=&",
+  #   "groupByFieldsForStatistics=&outStatistics=&returnZ=false&returnM=false&",
+  #   "gdbVersion=&historicMoment=&returnDistinctValues=false&resultOffset=",
+  #   "&resultRecordCount=&returnExtentOnly=false&datumTransformation=&",
+  #   "parameterValues=&rangeValues=&quantizationParameters=&featureEncoding=esriDefault&f=geojson")
 
   # read and create feature table
-  message("Fetching geometry for ", ISO3, "........")
-   resp <- httr::GET(api_query)
-  
-
-  if (httr::http_error(resp)) {
-      stop(
-        sprintf(
-          "ArcGIS request failed [%s]\n%s\n<%s>", 
-          status_code(resp),
-          parsed$message,
-          parsed$documentation_url
-        ),
-        call. = FALSE
-      )
-    } else if ( httr::http_type(resp) != "application/geo+json") {
-    return("API did not return geojson", call. = FALSE) 
-    } else { cat("Geojson retrieved! \n ")}
+   message("Trying to get data for ", 
+           countrycode::countrycode(ISO3,
+                                    "iso3c",
+                                    "country.name"),
+           ".")
    
-  ### Now checking that the geojson can be read... 
-  rm(df_geom) 
-  tryCatch(
+   
+    tryCatch(
         #try to do this
         {
         #some expression
-        df_geom <- sf::st_read(resp, quiet = TRUE)
+        startTime <- Sys.time()
+        resp <- httr::GET(api_query)  # , timeout(600)
+        endTime <- Sys.time()
+        logtxt <-endTime - starTime
+        message("Got API response for ",
+                ISO3, " in ",
+                log.txt , " .....\n")
         },
         #if an error occurs, tell me the error
-        error=function(e) {
-            message('An Error Occurred')
-            return(e)
+          error=function(e) {
+             # message("Failed when pulling for ",
+             #         ISO3, "  " , " ........\n")
+              res <- e
         }
      )
+   
+   
   
   ## in case we got something then start QA -
-  if ( exists(df_geom)){
-  
-    if(any(is.na(df_geom$gis_name))){
-      warning("NAs found in gis_name for: ", ISO3)
-    }
-    
-    if(anyDuplicated(df_geom$gis_name) > 0 ){
-      cat( paste0( anyDuplicated(df_geom$gis_name), " duplicated in gis_name for: ", ISO3) )
-      t <- df_geom[ duplicated(df_geom$gis_name), c("gis_name")]  
-      }
-  
-    if(any(is.na(df_geom$adm2_source_code))){
-      warning("NAs found in adm2_source_code for: ", ISO3)
-    }
-    
-    if(anyDuplicated(df_geom$adm2_source_code) > 0 ){
-      cat( paste0( anyDuplicated(df_geom$adm2_source_code), " duplicated in adm2_source_code for: ", ISO3) )
-    }
-    
-    if(any(is.na(df_geom$pcode))){
-      warning("NAs found in pcode for: ", ISO3)
-    }
-    
-    if(anyDuplicated(df_geom$pcode) > 0 ){
-      cat( paste0( anyDuplicated(df_geom$pcode), " duplicated in pcode for: ", ISO3) )
-    }
-    
-    ## Check if the pcode include isocode 2 letters, or iso code 2 letters
-     
-     
-  ### Checking if simplification works
-  if(simplify){
-    ## Check that simplification work
+  if ( exists("resp") ) {
+
+      if (httr::http_error(resp)) {
+          stop(
+            sprintf(
+              "ArcGIS request failed [%s]\n%s\n<%s>", 
+              status_code(resp),
+              parsed$message,
+              parsed$documentation_url
+             ),
+            call. = FALSE
+          )
+            res <- sprintf(
+              "ArcGIS request failed [%s]\n%s\n<%s>", 
+              status_code(resp),
+              parsed$message,
+              parsed$documentation_url
+             )
+        } else if ( httr::http_type(resp) != "application/geo+json") {
+         res <- "API did not return geojson" #, call. = FALSE) 
+        } else { cat("  ")}
+       
+      ### Now checking that the geojson can be read... 
+      rm(df_geom) 
       tryCatch(
-        #try to do this
-        {
-        #some expression
-        df_geom <- sf::st_simplify(df_geom, 
-                               preserveTopology = TRUE, 
-                               dTolerance = dTolerance)
-        },
-        #if an error occurs, tell me the error
-        error=function(e) {
-            message('An Error Occurred')
-            print(e)
-        },
-        #if a warning occurs, tell me the warning
-        warning=function(w) {
-            message('A Warning Occurred')
-            print(w)
-            return(NA)
+            #try to do this
+            {
+            #some expression
+            df_geom <- sf::st_read(resp, quiet = TRUE)
+            message("Geometry size for ", ISO3, " is ", object.size(df_geom) ,  "......")
+            },
+            #if an error occurs, tell me the error
+              error=function(e) {
+                  message('An Error Occurred')
+                  res <- e
+            }
+         )
+      
+      ## in case we got something then start QA -
+      if ( exists("df_geom") ) {
+      
+        if(any(is.na(df_geom$gis_name))){
+          warning("NAs found in gis_name for: ", ISO3, "\n")
         }
-     )
-    
-    
-    
-  } else { cat("No simplification was requested ")   }
+        
+        if(any(duplicated(df_geom$gis_name)) ){
+          cat( paste0( sum(duplicated(df_geom$gis_name) ),
+                       " duplicate in gis_name for: ", ISO3, "\n") )
+           }
+      
+        if(any(is.na(df_geom$adm2_source_code))){
+          warning("NAs found in adm2_source_code for: ", ISO3, "\n")
+        }
+        
+        if(any(duplicated(df_geom$adm2_source_code)) ){
+          cat( paste0( sum(duplicated(df_geom$adm2_source_code) ),
+                       " duplicate in adm2_source_code for: ", ISO3, "\n") )
+            }
+        
+        
+        
+        if(any(is.na(df_geom$pcode))){
+          warning("NAs found in pcode for: ", ISO3, "\n")
+        }
+        
+        if(any(duplicated(df_geom$pcode)) ){
+          cat( paste0( sum(duplicated(df_geom$pcode) ),
+                       " duplicate in pcode for: ", ISO3, "\n") )
+        }
+         
+        
+        ## Check if the pcode include isocode 2 letters, or iso code 2 letters
+         
+         
+      ### Checking if simplification works
+      if(simplify){
+        ## Check that simplification work
+          tryCatch(
+            #try to do this
+            {
+            #some expression
+            df_geom2 <- sf::st_simplify(df_geom, 
+                                   preserveTopology = TRUE, 
+                                   dTolerance = dTolerance) 
+               message("Simplified Geometry size for ", ISO3, " is ", object.size(df_geom2) ,  " aka ",
+                       round(
+                         as.numeric(object.size(df_geom2)) /
+                        as.numeric(object.size(df_geom)) 
+                        *100,2), 
+                       "% .....\n")
+            },
+            #if an error occurs, tell me the error
+            error=function(e) {
+                message('An Error Occurred during geometry simplification')
+                print(e)
+            },
+            #if a warning occurs, tell me the warning
+            warning=function(w) {
+                message('A Warning Occurred during geometry simplification')
+                print(w)
+                res <- NA
+            }
+         )
+          
+      } else { cat("No simplification was requested ")   }
+        
+      if ( exists("df_geom2") ) {
+            res <- df_geom2
+          } else { 
+          res <- df_geom
+          }
+        ## Save
+       saveRDS(res, file = here::here("inst/geom", paste0(ISO3,".RDS") ))
+       print( ggplot2::ggplot(data = res ) + 
+          ggplot2::geom_sf() + 
+          ggplot2::theme_void() +
+          ggplot2::labs(
+            title = paste0(
+              countrycode::countrycode(ISO3, "iso3c", "country.name"),
+              ": ",
+              nrow(df_geom),
+              " admin unit level2."
+            ),
+            subtitle = paste0("Average Single Polygon Disk Size: ",
+                             round(object.size(res)/nrow(df_geom),0))
+          )
+       )
+      }  
+  }
   
-  return(df_geom)
-  }  
-
-
+  return(res)
 }
 
 ```
@@ -167,26 +276,25 @@ f_get_admin2_boundaries <- function(ISO3, simplify = TRUE, dTolerance = 500){
 library(countrycode)
 ctr <- countrycode::codelist |>
        dplyr::filter( ! is.na(iso3c) )  |>
-       dplyr::filter(continent == "Americas" ) |>
+       dplyr::filter(unhcr.region == "The Americas" ) |>
        dplyr::select(country.name.en, iso3c)
 ctr
 ctr <- ctr |>
        dplyr::select(iso3c)  |>
        dplyr::pull()  
-
-
-# 
-BRA <- f_get_admin2_boundaries(ISO3 = "BRA", simplify = TRUE, dTolerance = 500)
-ECU <- f_get_admin2_boundaries(ISO3 = "ECU", simplify = TRUE, dTolerance = 500)
-GTM <- f_get_admin2_boundaries(ISO3 = "GTM", simplify = TRUE, dTolerance = 500)
-CRI <- f_get_admin2_boundaries(ISO3 = "CRI", simplify = TRUE, dTolerance = 500)
-CHL <- f_get_admin2_boundaries(ISO3 = "CHL", simplify = TRUE, dTolerance = 500)
-COL <- f_get_admin2_boundaries(ISO3 = "COL", simplify = TRUE, dTolerance = 500)
-MEX <- f_get_admin2_boundaries(ISO3 = "MEX", simplify = TRUE, dTolerance = 500)
+ 
+# BRA <- f_get_admin2_boundaries(ISO3 = "BRA", simplify = TRUE, dTolerance = 500)
+# ECU <- f_get_admin2_boundaries(ISO3 = "ECU", simplify = TRUE, dTolerance = 500)
+# GTM <- f_get_admin2_boundaries(ISO3 = "GTM", simplify = TRUE, dTolerance = 500)
+# CRI <- f_get_admin2_boundaries(ISO3 = "CRI", simplify = TRUE, dTolerance = 500)
+# CHL <- f_get_admin2_boundaries(ISO3 = "CHL", simplify = TRUE, dTolerance = 500)
+# COL <- f_get_admin2_boundaries(ISO3 = "COL", simplify = TRUE, dTolerance = 500)
+# MEX <- f_get_admin2_boundaries(ISO3 = "MEX", simplify = TRUE, dTolerance = 500)
 
 
 for ( code  in ctr )
- { t <- f_get_admin2_boundaries(ISO3 = code, simplify = TRUE, dTolerance = 500) }
+{ #cat (paste0(code,"\n"))
+  t <- f_get_admin2_boundaries(ISO3 = code, simplify = TRUE, dTolerance = 500) }
 ```
   
 ```{r tests-f_get_admin2_boundaries}

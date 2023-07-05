@@ -2,5 +2,8 @@
 
 export(f_get_admin2_boundaries)
 import(countrycode)
+import(ggplot2)
+import(here)
+importFrom(httr,GET)
 importFrom(sf,st_read)
 importFrom(sf,st_simplify)

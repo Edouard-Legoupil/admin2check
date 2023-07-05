@@ -1,8 +1,9 @@
-
-^dev$
-^LICENSE\.md$
 ^.*\.Rproj$
 ^\.Rproj\.user$
+^LICENSE\.md$
 ^README\.Rmd$
-^CODE_OF_CONDUCT\.md$
+^_pkgdown\.yml$
+^docs$
+^dev$
+^rsconnect$
 ^admin2check\.Rproj$

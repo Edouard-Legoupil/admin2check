@@ -11,6 +11,9 @@ Description: Perform simple Quality Assurance on the content of the
 License: MIT + file LICENSE
 Imports: 
     countrycode,
+    ggplot2,
+    here,
+    httr,
     sf
 Suggests: 
     dplyr,

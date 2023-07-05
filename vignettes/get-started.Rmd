@@ -41,9 +41,7 @@ ctr
 ctr <- ctr |>
        dplyr::select(iso3c)  |>
        dplyr::pull()  
-
-
-# 
+ 
 # BRA <- f_get_admin2_boundaries(ISO3 = "BRA", simplify = TRUE, dTolerance = 500)
 # ECU <- f_get_admin2_boundaries(ISO3 = "ECU", simplify = TRUE, dTolerance = 500)
 # GTM <- f_get_admin2_boundaries(ISO3 = "GTM", simplify = TRUE, dTolerance = 500)
@@ -54,7 +52,8 @@ ctr <- ctr |>
 
 
 for ( code  in ctr )
- { t <- f_get_admin2_boundaries(ISO3 = code, simplify = TRUE, dTolerance = 500) }
+{ #cat (paste0(code,"\n"))
+  t <- f_get_admin2_boundaries(ISO3 = code, simplify = TRUE, dTolerance = 500) }
 ```
 
   
