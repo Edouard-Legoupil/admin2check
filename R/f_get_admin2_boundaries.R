@@ -8,6 +8,8 @@
 #' expected format.
 #'
 #' @param ISO3 ISO3 code of country
+#' @param level 1 or 2
+#' @param simple 1 to 3 - parameter for ArcGIS API call
 #' @param simplify Logical: whether to simplify or not
 #' @param dTolerance parameter passed to [sf::st_simplify()]
 #' 
@@ -24,33 +26,78 @@
 #' library(countrycode)
 #' ctr <- countrycode::codelist |>
 #'        dplyr::filter( ! is.na(iso3c) )  |>
-#'        dplyr::filter(continent == "Americas" ) |>
-#'        dplyr::select(country.name.en, iso3c)
+#'        dplyr::filter(unhcr.region == "The Americas" ) |>
+#'        dplyr::select(country.name.en, iso3c) |>
+#'        dplyr::arrange( iso3c)
 #' ctr
 #' ctr <- ctr |>
 #'        dplyr::select(iso3c)  |>
 #'        dplyr::pull()  
-#'  
-#' # BRA <- f_get_admin2_boundaries(ISO3 = "BRA", simplify = TRUE, dTolerance = 500)
-#' # ECU <- f_get_admin2_boundaries(ISO3 = "ECU", simplify = TRUE, dTolerance = 500)
-#' # GTM <- f_get_admin2_boundaries(ISO3 = "GTM", simplify = TRUE, dTolerance = 500)
-#' # CRI <- f_get_admin2_boundaries(ISO3 = "CRI", simplify = TRUE, dTolerance = 500)
-#' # CHL <- f_get_admin2_boundaries(ISO3 = "CHL", simplify = TRUE, dTolerance = 500)
-#' # COL <- f_get_admin2_boundaries(ISO3 = "COL", simplify = TRUE, dTolerance = 500)
-#' # MEX <- f_get_admin2_boundaries(ISO3 = "MEX", simplify = TRUE, dTolerance = 500)
+#' ## test on faulty.. with ArcGIS server simpification.. 
+#' BRA2 <- f_get_admin2_boundaries( ISO3 = "BRA",
+#'                                 level = 2,
+#'                                  simple = 1, 
+#'                                 simplify = TRUE,
+#'                                 dTolerance = 500)
+#' 
+#' # ECU <- f_get_admin2_boundaries(ISO3 = "ECU",level = 2, simplify = TRUE, dTolerance = 500)
+#' # GTM <- f_get_admin2_boundaries(ISO3 = "GTM",level = 2, simplify = TRUE, dTolerance = 500)
+#' # GTM1 <- f_get_admin2_boundaries(ISO3 = "GTM",level = 1, simple = NULL, simplify = TRUE, dTolerance = 500)
+#' # CRI <- f_get_admin2_boundaries(ISO3 = "CRI",level = 2, simplify = TRUE, dTolerance = 500)
+#' # CHL <- f_get_admin2_boundaries(ISO3 = "CHL",level = 2, simplify = TRUE, dTolerance = 500)
+#' # COL <- f_get_admin2_boundaries(ISO3 = "COL",level = 2, simplify = TRUE, dTolerance = 500)
+#' # MEX <- f_get_admin2_boundaries(ISO3 = "MEX",level = 2, simplify = TRUE, dTolerance = 500)
 #' 
 #' 
-#' for ( code  in ctr )
-#' { #cat (paste0(code,"\n"))
-#'   t <- f_get_admin2_boundaries(ISO3 = code, simplify = TRUE, dTolerance = 500) }
-f_get_admin2_boundaries <- function(ISO3, simplify = TRUE, dTolerance = 500){
+#' for ( code  in ctr ) { 
+#'   # code <- "GTM"
+#'   #cat (paste0(code,"\n"))
+#'   t2 <- f_get_admin2_boundaries(ISO3 = code,
+#'                                level = 2,
+#'                                simple = NULL,
+#'                                simplify = TRUE, 
+#'                                dTolerance = 500) 
+#'   t1 <- f_get_admin2_boundaries(ISO3 = code,
+#'                                level = 1,
+#'                                simple = NULL,
+#'                                simplify = TRUE, 
+#'                                dTolerance = 500) 
+#'   ## Merge back aadm1_name in t2
+#'   if ( any( class(t2) !="character" &
+#'             nrow(t2) > 0 &
+#'             class(t1) !="character" &
+#'             nrow(t1) > 0  ) ) {
+#'       t2 |>
+#'       dplyr::mutate(adm1_pcode = as.character(adm1_pcode)) |>
+#'       dplyr::left_join( t1 |>
+#'                         sf::st_drop_geometry() |>
+#'                         dplyr::select(pcode, gis_name) |>
+#'                         dplyr::distinct() |>
+#'                         dplyr::rename(adm1_pcode = pcode,
+#'                                       adm1_name = gis_name ) |>
+#'                         dplyr::mutate(adm1_pcode = as.character(adm1_pcode)) ,
+#'           by = c("adm1_pcode")) |>
+#'           dplyr::select(iso3, pcode, gis_name, adm2_source_code, 
+#'                         adm1_pcode,adm1_name,
+#'                         gis_status,source, src_date,  geometry ) |>
+#'           dplyr::filter(gis_status == 14 ) |>
+#'           saveRDS(  file = here::here("inst/geom", paste0(code,".RDS") ))
+#'      }
+#'   }
+f_get_admin2_boundaries <- function(ISO3,
+                                    level,
+                                    simple ,
+                                    simplify = TRUE, 
+                                    dTolerance = 500){
 
   stopifnot(ISO3 %in% countrycode::codelist$iso3c)
   # generate query string
   # from: https://gis.unhcr.org/arcgis/rest/services/core_v2/wrl_polbnd_adm2_a_unhcr/MapServer/0/query
   
    api_query <- paste0(
-  "https://gis.unhcr.org/arcgis/rest/services/core_v2/wrl_polbnd_adm2_a_unhcr/MapServer/0/",
+  "https://gis.unhcr.org/arcgis/rest/services/core_v2/wrl_polbnd_adm",
+  level,
+  "_a_unhcr/MapServer/0/",
   "query?where=ISO3+%3D+%27",
      ISO3,
   "%27&text=&",
@@ -61,12 +108,13 @@ f_get_admin2_boundaries <- function(ISO3, simplify = TRUE, dTolerance = 500){
   "inSR=&",
   "spatialRel=esriSpatialRelIntersects&",
   "distance=&",
-  "units=esriSRUnit_Foot&relationParam=&",
+  "units=esriSRUnit_Foot&",
+  "relationParam=&",
   "outFields=*&",
  # "&outFields=pcode%2C+adm2_source_code%2C+gis_name%2C&",
   "returnGeometry=true&returnTrueCurves=false&",
   "maxAllowableOffset=&",
-  "geometryPrecision=&",
+  "geometryPrecision=",  simple, "&",
   "outSR=&havingClause=&",
   "returnIdsOnly=false&",
   "returnCountOnly=false&",
@@ -88,23 +136,6 @@ f_get_admin2_boundaries <- function(ISO3, simplify = TRUE, dTolerance = 500){
   "featureEncoding=esriDefault&",
   "f=geojson")
 
-  # api_query <- paste0(
-  #   "https://gis.unhcr.org/arcgis/rest/services/core_v2/wrl_polbnd_adm2_a_unhcr/",
-  #   "MapServer/0/query?where=ISO3+%3D+%27",
-  #    ISO3,
-  #   "%27&text=&objectIds=&time=&geometry=",
-  #   "&geometryType=esriGeometryEnvelope&inSR=&spatialRel=esriSpatialRelIntersects",
-  #   "&distance=&units=esriSRUnit_Foot&relationParam=",
-  #   "&outFields=pcode%2C+adm2_source_code%2C+gis_name%2C&",
-  # "returnGeometry=true&",
-  #  # "&outFields=pcode%2C+adm2_source_code%2C+gis_name%2C+gis_status%2C&returnGeometry=true&",
-  #   #"&outFields=pcode%2C+adm2_source_code%2C+gis_name%2C+adm1_source_code%2C+gis_status%2C&returnGeometry=true&",
-  #   "returnTrueCurves=false&maxAllowableOffset=&geometryPrecision=&outSR=&",
-  #   "havingClause=&returnIdsOnly=false&returnCountOnly=false&orderByFields=&",
-  #   "groupByFieldsForStatistics=&outStatistics=&returnZ=false&returnM=false&",
-  #   "gdbVersion=&historicMoment=&returnDistinctValues=false&resultOffset=",
-  #   "&resultRecordCount=&returnExtentOnly=false&datumTransformation=&",
-  #   "parameterValues=&rangeValues=&quantizationParameters=&featureEncoding=esriDefault&f=geojson")
 
   # read and create feature table
    message("Trying to get data for ", 
@@ -187,15 +218,15 @@ f_get_admin2_boundaries <- function(ISO3, simplify = TRUE, dTolerance = 500){
                        " duplicate in gis_name for: ", ISO3, "\n") )
            }
       
-        if(any(is.na(df_geom$adm2_source_code))){
-          warning("NAs found in adm2_source_code for: ", ISO3, "\n")
-        }
-        
-        if(any(duplicated(df_geom$adm2_source_code)) ){
-          cat( paste0( sum(duplicated(df_geom$adm2_source_code) ),
-                       " duplicate in adm2_source_code for: ", ISO3, "\n") )
-            }
-        
+        # if(any(is.na(df_geom$adm2_source_code))){
+        #   warning("NAs found in adm2_source_code for: ", ISO3, "\n")
+        # }
+        # 
+        # if(any(duplicated(df_geom$adm2_source_code)) ){
+        #   cat( paste0( sum(duplicated(df_geom$adm2_source_code) ),
+        #                " duplicate in adm2_source_code for: ", ISO3, "\n") )
+        #     }
+        # 
         
         
         if(any(is.na(df_geom$pcode))){
@@ -248,8 +279,9 @@ f_get_admin2_boundaries <- function(ISO3, simplify = TRUE, dTolerance = 500){
           } else { 
           res <- df_geom
           }
-        ## Save
-       saveRDS(res, file = here::here("inst/geom", paste0(ISO3,".RDS") ))
+       ## Save
+       saveRDS(res, file = here::here("inst/geom", paste0(ISO3,"_level_", level,".RDS") ))
+       ## plot
        print( ggplot2::ggplot(data = res ) + 
           ggplot2::geom_sf() + 
           ggplot2::theme_void() +
@@ -258,10 +290,11 @@ f_get_admin2_boundaries <- function(ISO3, simplify = TRUE, dTolerance = 500){
               countrycode::countrycode(ISO3, "iso3c", "country.name"),
               ": ",
               nrow(df_geom),
-              " admin unit level2."
+              " admin units level ", level
             ),
             subtitle = paste0("Average Single Polygon Disk Size: ",
-                             round(object.size(res)/nrow(df_geom),0))
+                             round(object.size(res)/nrow(df_geom),0)),
+            caption = paste0("Source: ",unique(res$source))
           )
        )
       }  

@@ -88,326 +88,602 @@
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://vincentarelbundock.github.io/countrycode/" class="external-link">countrycode</a></span><span class="op">)</span></span>
 <span><span class="va">ctr</span> <span class="op">&lt;-</span> <span class="fu">countrycode</span><span class="fu">::</span><span class="va"><a href="https://vincentarelbundock.github.io/countrycode/reference/codelist.html" class="external-link">codelist</a></span> <span class="op">|&gt;</span></span>
 <span>       <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span> <span class="op">!</span> <span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">iso3c</span><span class="op">)</span> <span class="op">)</span>  <span class="op">|&gt;</span></span>
-<span>       <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">continent</span> <span class="op">==</span> <span class="st">"Americas"</span> <span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>       <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">country.name.en</span>, <span class="va">iso3c</span><span class="op">)</span></span>
+<span>       <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">unhcr.region</span> <span class="op">==</span> <span class="st">"The Americas"</span> <span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>       <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">country.name.en</span>, <span class="va">iso3c</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>       <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html" class="external-link">arrange</a></span><span class="op">(</span> <span class="va">iso3c</span><span class="op">)</span></span>
 <span><span class="va">ctr</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 55 × 2</span></span></span>
-<span><span class="co">#&gt;    country.name.en   iso3c</span></span>
-<span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>             <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> Anguilla          AIA  </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> Antigua &amp; Barbuda ATG  </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> Argentina         ARG  </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> Aruba             ABW  </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> Bahamas           BHS  </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> Barbados          BRB  </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> Belize            BLZ  </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> Bermuda           BMU  </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> Bolivia           BOL  </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> Brazil            BRA  </span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 45 more rows</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 51 × 2</span></span></span>
+<span><span class="co">#&gt;    country.name.en       iso3c</span></span>
+<span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                 <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> Aruba                 ABW  </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> Anguilla              AIA  </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> Argentina             ARG  </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> Antigua &amp; Barbuda     ATG  </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> Caribbean Netherlands BES  </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> Bahamas               BHS  </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> Belize                BLZ  </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> Bermuda               BMU  </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> Bolivia               BOL  </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> Brazil                BRA  </span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 41 more rows</span></span></span>
 <span><span class="va">ctr</span> <span class="op">&lt;-</span> <span class="va">ctr</span> <span class="op">|&gt;</span></span>
 <span>       <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">iso3c</span><span class="op">)</span>  <span class="op">|&gt;</span></span>
 <span>       <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/pull.html" class="external-link">pull</a></span><span class="op">(</span><span class="op">)</span>  </span>
-<span> </span>
-<span><span class="co"># BRA &lt;- f_get_admin2_boundaries(ISO3 = "BRA", simplify = TRUE, dTolerance = 500)</span></span>
-<span><span class="co"># ECU &lt;- f_get_admin2_boundaries(ISO3 = "ECU", simplify = TRUE, dTolerance = 500)</span></span>
-<span><span class="co"># GTM &lt;- f_get_admin2_boundaries(ISO3 = "GTM", simplify = TRUE, dTolerance = 500)</span></span>
-<span><span class="co"># CRI &lt;- f_get_admin2_boundaries(ISO3 = "CRI", simplify = TRUE, dTolerance = 500)</span></span>
-<span><span class="co"># CHL &lt;- f_get_admin2_boundaries(ISO3 = "CHL", simplify = TRUE, dTolerance = 500)</span></span>
-<span><span class="co"># COL &lt;- f_get_admin2_boundaries(ISO3 = "COL", simplify = TRUE, dTolerance = 500)</span></span>
-<span><span class="co"># MEX &lt;- f_get_admin2_boundaries(ISO3 = "MEX", simplify = TRUE, dTolerance = 500)</span></span>
+<span><span class="co">## test on faulty.. with ArcGIS server simpification.. </span></span>
+<span><span class="va">BRA2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/f_get_admin2_boundaries.html">f_get_admin2_boundaries</a></span><span class="op">(</span> ISO3 <span class="op">=</span> <span class="st">"BRA"</span>,</span>
+<span>                                level <span class="op">=</span> <span class="fl">2</span>,</span>
+<span>                                 simple <span class="op">=</span> <span class="fl">1</span>, </span>
+<span>                                simplify <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>                                dTolerance <span class="op">=</span> <span class="fl">500</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Trying to get data for Brazil.</span></span>
+<span><span class="co">#&gt; Warning in rm(df_geom): object 'df_geom' not found</span></span>
+<span><span class="co">#&gt; An Error Occurred</span></span>
+<span></span>
+<span><span class="co"># ECU &lt;- f_get_admin2_boundaries(ISO3 = "ECU",level = 2, simplify = TRUE, dTolerance = 500)</span></span>
+<span><span class="co"># GTM &lt;- f_get_admin2_boundaries(ISO3 = "GTM",level = 2, simplify = TRUE, dTolerance = 500)</span></span>
+<span><span class="co"># GTM1 &lt;- f_get_admin2_boundaries(ISO3 = "GTM",level = 1, simple = NULL, simplify = TRUE, dTolerance = 500)</span></span>
+<span><span class="co"># CRI &lt;- f_get_admin2_boundaries(ISO3 = "CRI",level = 2, simplify = TRUE, dTolerance = 500)</span></span>
+<span><span class="co"># CHL &lt;- f_get_admin2_boundaries(ISO3 = "CHL",level = 2, simplify = TRUE, dTolerance = 500)</span></span>
+<span><span class="co"># COL &lt;- f_get_admin2_boundaries(ISO3 = "COL",level = 2, simplify = TRUE, dTolerance = 500)</span></span>
+<span><span class="co"># MEX &lt;- f_get_admin2_boundaries(ISO3 = "MEX",level = 2, simplify = TRUE, dTolerance = 500)</span></span>
 <span></span>
 <span></span>
-<span><span class="kw">for</span> <span class="op">(</span> <span class="va">code</span>  <span class="kw">in</span> <span class="va">ctr</span> <span class="op">)</span></span>
-<span><span class="op">{</span> <span class="co">#cat (paste0(code,"\n"))</span></span>
-<span>  <span class="va">t</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/f_get_admin2_boundaries.html">f_get_admin2_boundaries</a></span><span class="op">(</span>ISO3 <span class="op">=</span> <span class="va">code</span>, simplify <span class="op">=</span> <span class="cn">TRUE</span>, dTolerance <span class="op">=</span> <span class="fl">500</span><span class="op">)</span> <span class="op">}</span></span>
-<span><span class="co">#&gt; Trying to get data for Anguilla.</span></span></code></pre></div>
+<span><span class="kw">for</span> <span class="op">(</span> <span class="va">code</span>  <span class="kw">in</span> <span class="va">ctr</span> <span class="op">)</span> <span class="op">{</span> </span>
+<span>  <span class="co"># code &lt;- "GTM"</span></span>
+<span>  <span class="co">#cat (paste0(code,"\n"))</span></span>
+<span>  <span class="va">t2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/f_get_admin2_boundaries.html">f_get_admin2_boundaries</a></span><span class="op">(</span>ISO3 <span class="op">=</span> <span class="va">code</span>,</span>
+<span>                               level <span class="op">=</span> <span class="fl">2</span>,</span>
+<span>                               simple <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>                               simplify <span class="op">=</span> <span class="cn">TRUE</span>, </span>
+<span>                               dTolerance <span class="op">=</span> <span class="fl">500</span><span class="op">)</span> </span>
+<span>  <span class="va">t1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/f_get_admin2_boundaries.html">f_get_admin2_boundaries</a></span><span class="op">(</span>ISO3 <span class="op">=</span> <span class="va">code</span>,</span>
+<span>                               level <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>                               simple <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>                               simplify <span class="op">=</span> <span class="cn">TRUE</span>, </span>
+<span>                               dTolerance <span class="op">=</span> <span class="fl">500</span><span class="op">)</span> </span>
+<span>  <span class="co">## Merge back aadm1_name in t2</span></span>
+<span>  <span class="kw">if</span> <span class="op">(</span> <span class="fu"><a href="https://rdrr.io/r/base/any.html" class="external-link">any</a></span><span class="op">(</span> <span class="fu"><a href="https://rdrr.io/r/base/class.html" class="external-link">class</a></span><span class="op">(</span><span class="va">t2</span><span class="op">)</span> <span class="op">!=</span><span class="st">"character"</span> <span class="op">&amp;</span></span>
+<span>            <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">t2</span><span class="op">)</span> <span class="op">&gt;</span> <span class="fl">0</span> <span class="op">&amp;</span></span>
+<span>            <span class="fu"><a href="https://rdrr.io/r/base/class.html" class="external-link">class</a></span><span class="op">(</span><span class="va">t1</span><span class="op">)</span> <span class="op">!=</span><span class="st">"character"</span> <span class="op">&amp;</span></span>
+<span>            <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">t1</span><span class="op">)</span> <span class="op">&gt;</span> <span class="fl">0</span>  <span class="op">)</span> <span class="op">)</span> <span class="op">{</span></span>
+<span>      <span class="va">t2</span> <span class="op">|&gt;</span></span>
+<span>      <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>adm1_pcode <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">as.character</a></span><span class="op">(</span><span class="va">adm1_pcode</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>      <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html" class="external-link">left_join</a></span><span class="op">(</span> <span class="va">t1</span> <span class="op">|&gt;</span></span>
+<span>                        <span class="fu">sf</span><span class="fu">::</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_geometry.html" class="external-link">st_drop_geometry</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>                        <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">pcode</span>, <span class="va">gis_name</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>                        <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/distinct.html" class="external-link">distinct</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>                        <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/rename.html" class="external-link">rename</a></span><span class="op">(</span>adm1_pcode <span class="op">=</span> <span class="va">pcode</span>,</span>
+<span>                                      adm1_name <span class="op">=</span> <span class="va">gis_name</span> <span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>                        <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>adm1_pcode <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">as.character</a></span><span class="op">(</span><span class="va">adm1_pcode</span><span class="op">)</span><span class="op">)</span> ,</span>
+<span>          by <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"adm1_pcode"</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>          <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">iso3</span>, <span class="va">pcode</span>, <span class="va">gis_name</span>, <span class="va">adm2_source_code</span>, </span>
+<span>                        <span class="va">adm1_pcode</span>,<span class="va">adm1_name</span>,</span>
+<span>                        <span class="va">gis_status</span>,<span class="va">source</span>, <span class="va">src_date</span>,  <span class="va">geometry</span> <span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>          <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">gis_status</span> <span class="op">==</span> <span class="fl">14</span> <span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>          <span class="fu"><a href="https://rdrr.io/r/base/readRDS.html" class="external-link">saveRDS</a></span><span class="op">(</span>  file <span class="op">=</span> <span class="fu">here</span><span class="fu">::</span><span class="fu"><a href="https://here.r-lib.org//reference/here.html" class="external-link">here</a></span><span class="op">(</span><span class="st">"inst/geom"</span>, <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="va">code</span>,<span class="st">".RDS"</span><span class="op">)</span> <span class="op">)</span><span class="op">)</span></span>
+<span>     <span class="op">}</span></span>
+<span>  <span class="op">}</span></span>
+<span><span class="co">#&gt; Trying to get data for Aruba.</span></span></code></pre></div>
+<pre><code><span><span class="co">#&gt; Warning in rm(df_geom): object 'df_geom' not found</span></span>
+<span><span class="co">#&gt; Geometry size for ABW is 388848......</span></span>
+<span><span class="co">#&gt; Simplified Geometry size for ABW is 11560 aka 2.97% .....</span></span>
+<span><span class="co">#&gt; Trying to get data for Aruba.</span></span></code></pre>
+<pre><code><span><span class="co">#&gt; Warning in rm(df_geom): object 'df_geom' not found</span></span>
+<span><span class="co">#&gt; Geometry size for ABW is 388672......</span></span>
+<span><span class="co">#&gt; Simplified Geometry size for ABW is 11384 aka 2.93% .....</span></span></code></pre>
+<p><img src="get-started_files/figure-html/example-f_get_admin2_boundaries-1.png" width="700"></p>
+<pre><code><span><span class="co">#&gt; Trying to get data for Anguilla.</span></span></code></pre>
 <pre><code><span><span class="co">#&gt; Warning in rm(df_geom): object 'df_geom' not found</span></span>
 <span><span class="co">#&gt; Geometry size for AIA is 56696......</span></span>
-<span><span class="co">#&gt; Simplified Geometry size for AIA is 13080 aka 23.07% .....</span></span>
-<span><span class="co">#&gt; Trying to get data for Antigua &amp; Barbuda.</span></span></code></pre>
+<span><span class="co">#&gt; Simplified Geometry size for AIA is 13080 aka 23.07% .....</span></span></code></pre>
+<p><img src="get-started_files/figure-html/example-f_get_admin2_boundaries-2.png" width="700"></p>
+<pre><code><span><span class="co">#&gt; Trying to get data for Anguilla.</span></span></code></pre>
 <pre><code><span><span class="co">#&gt; Warning in rm(df_geom): object 'df_geom' not found</span></span>
-<span><span class="co">#&gt; Geometry size for ATG is 156248......</span></span>
-<span><span class="co">#&gt; 7 duplicate in adm2_source_code for: ATG</span></span>
-<span><span class="co">#&gt; Simplified Geometry size for ATG is 25728 aka 16.47% .....</span></span></code></pre>
-<p><img src="get-started_files/figure-html/example-f_get_admin2_boundaries-1.png" width="700"></p>
+<span><span class="co">#&gt; Geometry size for AIA is 56480......</span></span>
+<span><span class="co">#&gt; Simplified Geometry size for AIA is 12864 aka 22.78% .....</span></span></code></pre>
+<p><img src="get-started_files/figure-html/example-f_get_admin2_boundaries-3.png" width="700"></p>
 <pre><code><span><span class="co">#&gt; Trying to get data for Argentina.</span></span></code></pre>
 <pre><code><span><span class="co">#&gt; Warning in rm(df_geom): object 'df_geom' not found</span></span>
 <span><span class="co">#&gt; Geometry size for ARG is 27475360......</span></span>
 <span><span class="co">#&gt; 81 duplicate in gis_name for: ARG</span></span>
 <span><span class="co">#&gt; Simplified Geometry size for ARG is 1235984 aka 4.5% .....</span></span></code></pre>
-<p><img src="get-started_files/figure-html/example-f_get_admin2_boundaries-2.png" width="700"></p>
-<pre><code><span><span class="co">#&gt; Trying to get data for Aruba.</span></span></code></pre>
+<p><img src="get-started_files/figure-html/example-f_get_admin2_boundaries-4.png" width="700"></p>
+<pre><code><span><span class="co">#&gt; Trying to get data for Argentina.</span></span></code></pre>
 <pre><code><span><span class="co">#&gt; Warning in rm(df_geom): object 'df_geom' not found</span></span>
-<span><span class="co">#&gt; Geometry size for ABW is 388848......</span></span>
-<span><span class="co">#&gt; Simplified Geometry size for ABW is 11560 aka 2.97% .....</span></span></code></pre>
-<p><img src="get-started_files/figure-html/example-f_get_admin2_boundaries-3.png" width="700"></p>
+<span><span class="co">#&gt; Geometry size for ARG is 12358408......</span></span>
+<span><span class="co">#&gt; Simplified Geometry size for ARG is 258648 aka 2.09% .....</span></span></code></pre>
+<p><img src="get-started_files/figure-html/example-f_get_admin2_boundaries-5.png" width="700"></p>
+<pre><code><span><span class="co">#&gt; Trying to get data for Antigua &amp; Barbuda.</span></span></code></pre>
+<pre><code><span><span class="co">#&gt; Warning in rm(df_geom): object 'df_geom' not found</span></span>
+<span><span class="co">#&gt; Geometry size for ATG is 156248......</span></span>
+<span><span class="co">#&gt; Simplified Geometry size for ATG is 25728 aka 16.47% .....</span></span></code></pre>
+<p><img src="get-started_files/figure-html/example-f_get_admin2_boundaries-6.png" width="700"></p>
+<pre><code><span><span class="co">#&gt; Trying to get data for Antigua &amp; Barbuda.</span></span></code></pre>
+<pre><code><span><span class="co">#&gt; Warning in rm(df_geom): object 'df_geom' not found</span></span>
+<span><span class="co">#&gt; Geometry size for ATG is 155920......</span></span>
+<span><span class="co">#&gt; Simplified Geometry size for ATG is 25400 aka 16.29% .....</span></span></code></pre>
+<p><img src="get-started_files/figure-html/example-f_get_admin2_boundaries-7.png" width="700"></p>
+<pre><code><span><span class="co">#&gt; Trying to get data for Caribbean Netherlands.</span></span></code></pre>
+<pre><code><span><span class="co">#&gt; Warning in rm(df_geom): object 'df_geom' not found</span></span>
+<span><span class="co">#&gt; Geometry size for BES is 104592......</span></span>
+<span><span class="co">#&gt; Simplified Geometry size for BES is 15128 aka 14.46% .....</span></span></code></pre>
+<p><img src="get-started_files/figure-html/example-f_get_admin2_boundaries-8.png" width="700"></p>
+<pre><code><span><span class="co">#&gt; Trying to get data for Caribbean Netherlands.</span></span></code></pre>
+<pre><code><span><span class="co">#&gt; Warning in rm(df_geom): object 'df_geom' not found</span></span>
+<span><span class="co">#&gt; Geometry size for BES is 104096......</span></span>
+<span><span class="co">#&gt; Simplified Geometry size for BES is 14632 aka 14.06% .....</span></span></code></pre>
+<p><img src="get-started_files/figure-html/example-f_get_admin2_boundaries-9.png" width="700"></p>
 <pre><code><span><span class="co">#&gt; Trying to get data for Bahamas.</span></span></code></pre>
 <pre><code><span><span class="co">#&gt; Warning in rm(df_geom): object 'df_geom' not found</span></span>
 <span><span class="co">#&gt; Geometry size for BHS is 4799648......</span></span>
 <span><span class="co">#&gt; Simplified Geometry size for BHS is 291208 aka 6.07% .....</span></span></code></pre>
-<p><img src="get-started_files/figure-html/example-f_get_admin2_boundaries-4.png" width="700"></p>
-<pre><code><span><span class="co">#&gt; Trying to get data for Barbados.</span></span></code></pre>
+<p><img src="get-started_files/figure-html/example-f_get_admin2_boundaries-10.png" width="700"></p>
+<pre><code><span><span class="co">#&gt; Trying to get data for Bahamas.</span></span></code></pre>
 <pre><code><span><span class="co">#&gt; Warning in rm(df_geom): object 'df_geom' not found</span></span>
-<span><span class="co">#&gt; Geometry size for BRB is 69328......</span></span>
-<span><span class="co">#&gt; Simplified Geometry size for BRB is 25008 aka 36.07% .....</span></span></code></pre>
-<p><img src="get-started_files/figure-html/example-f_get_admin2_boundaries-5.png" width="700"></p>
+<span><span class="co">#&gt; Geometry size for BHS is 4797200......</span></span>
+<span><span class="co">#&gt; Simplified Geometry size for BHS is 288760 aka 6.02% .....</span></span></code></pre>
+<p><img src="get-started_files/figure-html/example-f_get_admin2_boundaries-11.png" width="700"></p>
 <pre><code><span><span class="co">#&gt; Trying to get data for Belize.</span></span></code></pre>
 <pre><code><span><span class="co">#&gt; Warning in rm(df_geom): object 'df_geom' not found</span></span>
 <span><span class="co">#&gt; Geometry size for BLZ is 815536......</span></span>
-<span><span class="co">#&gt; 5 duplicate in adm2_source_code for: BLZ</span></span>
 <span><span class="co">#&gt; Simplified Geometry size for BLZ is 63480 aka 7.78% .....</span></span></code></pre>
-<p><img src="get-started_files/figure-html/example-f_get_admin2_boundaries-6.png" width="700"></p>
+<p><img src="get-started_files/figure-html/example-f_get_admin2_boundaries-12.png" width="700"></p>
+<pre><code><span><span class="co">#&gt; Trying to get data for Belize.</span></span></code></pre>
+<pre><code><span><span class="co">#&gt; Warning in rm(df_geom): object 'df_geom' not found</span></span>
+<span><span class="co">#&gt; Geometry size for BLZ is 814960......</span></span>
+<span><span class="co">#&gt; Simplified Geometry size for BLZ is 62344 aka 7.65% .....</span></span></code></pre>
+<p><img src="get-started_files/figure-html/example-f_get_admin2_boundaries-13.png" width="700"></p>
 <pre><code><span><span class="co">#&gt; Trying to get data for Bermuda.</span></span></code></pre>
 <pre><code><span><span class="co">#&gt; Warning in rm(df_geom): object 'df_geom' not found</span></span>
 <span><span class="co">#&gt; Geometry size for BMU is 130648......</span></span>
 <span><span class="co">#&gt; Simplified Geometry size for BMU is 27288 aka 20.89% .....</span></span></code></pre>
-<p><img src="get-started_files/figure-html/example-f_get_admin2_boundaries-7.png" width="700"></p>
+<p><img src="get-started_files/figure-html/example-f_get_admin2_boundaries-14.png" width="700"></p>
+<pre><code><span><span class="co">#&gt; Trying to get data for Bermuda.</span></span></code></pre>
+<pre><code><span><span class="co">#&gt; Warning in rm(df_geom): object 'df_geom' not found</span></span>
+<span><span class="co">#&gt; Geometry size for BMU is 129632......</span></span>
+<span><span class="co">#&gt; Simplified Geometry size for BMU is 26272 aka 20.27% .....</span></span></code></pre>
+<p><img src="get-started_files/figure-html/example-f_get_admin2_boundaries-15.png" width="700"></p>
 <pre><code><span><span class="co">#&gt; Trying to get data for Bolivia.</span></span></code></pre>
 <pre><code><span><span class="co">#&gt; Warning in rm(df_geom): object 'df_geom' not found</span></span>
 <span><span class="co">#&gt; Geometry size for BOL is 8556568......</span></span>
 <span><span class="co">#&gt; 3 duplicate in gis_name for: BOL</span></span>
 <span><span class="co">#&gt; Simplified Geometry size for BOL is 461320 aka 5.39% .....</span></span></code></pre>
-<p><img src="get-started_files/figure-html/example-f_get_admin2_boundaries-8.png" width="700"></p>
+<p><img src="get-started_files/figure-html/example-f_get_admin2_boundaries-16.png" width="700"></p>
+<pre><code><span><span class="co">#&gt; Trying to get data for Bolivia.</span></span></code></pre>
+<pre><code><span><span class="co">#&gt; Warning in rm(df_geom): object 'df_geom' not found</span></span>
+<span><span class="co">#&gt; Geometry size for BOL is 2334416......</span></span>
+<span><span class="co">#&gt; Simplified Geometry size for BOL is 120808 aka 5.18% .....</span></span></code></pre>
+<p><img src="get-started_files/figure-html/example-f_get_admin2_boundaries-17.png" width="700"></p>
 <pre><code><span><span class="co">#&gt; Trying to get data for Brazil.</span></span>
 <span><span class="co">#&gt; Warning in rm(df_geom): object 'df_geom' not found</span></span>
 <span><span class="co">#&gt; An Error Occurred</span></span>
-<span><span class="co">#&gt; Trying to get data for British Virgin Islands.</span></span></code></pre>
+<span><span class="co">#&gt; Trying to get data for Brazil.</span></span></code></pre>
 <pre><code><span><span class="co">#&gt; Warning in rm(df_geom): object 'df_geom' not found</span></span>
-<span><span class="co">#&gt; Geometry size for VGB is 148144......</span></span>
-<span><span class="co">#&gt; Simplified Geometry size for VGB is 25240 aka 17.04% .....</span></span></code></pre>
-<p><img src="get-started_files/figure-html/example-f_get_admin2_boundaries-9.png" width="700"></p>
+<span><span class="co">#&gt; Geometry size for BRA is 9204496......</span></span>
+<span><span class="co">#&gt; Simplified Geometry size for BRA is 590088 aka 6.41% .....</span></span></code></pre>
+<p><img src="get-started_files/figure-html/example-f_get_admin2_boundaries-18.png" width="700"></p>
+<pre><code><span><span class="co">#&gt; Trying to get data for Barbados.</span></span></code></pre>
+<pre><code><span><span class="co">#&gt; Warning in rm(df_geom): object 'df_geom' not found</span></span>
+<span><span class="co">#&gt; Geometry size for BRB is 69328......</span></span>
+<span><span class="co">#&gt; Simplified Geometry size for BRB is 25008 aka 36.07% .....</span></span></code></pre>
+<p><img src="get-started_files/figure-html/example-f_get_admin2_boundaries-19.png" width="700"></p>
+<pre><code><span><span class="co">#&gt; Trying to get data for Barbados.</span></span></code></pre>
+<pre><code><span><span class="co">#&gt; Warning in rm(df_geom): object 'df_geom' not found</span></span>
+<span><span class="co">#&gt; Geometry size for BRB is 68352......</span></span>
+<span><span class="co">#&gt; Simplified Geometry size for BRB is 24032 aka 35.16% .....</span></span></code></pre>
+<p><img src="get-started_files/figure-html/example-f_get_admin2_boundaries-20.png" width="700"></p>
 <pre><code><span><span class="co">#&gt; Trying to get data for Canada.</span></span>
 <span><span class="co">#&gt; Warning in rm(df_geom): object 'df_geom' not found</span></span>
 <span><span class="co">#&gt; An Error Occurred</span></span>
-<span><span class="co">#&gt; Trying to get data for Caribbean Netherlands.</span></span></code></pre>
-<pre><code><span><span class="co">#&gt; Warning in rm(df_geom): object 'df_geom' not found</span></span>
-<span><span class="co">#&gt; Geometry size for BES is 104592......</span></span>
-<span><span class="co">#&gt; Simplified Geometry size for BES is 15128 aka 14.46% .....</span></span></code></pre>
-<p><img src="get-started_files/figure-html/example-f_get_admin2_boundaries-10.png" width="700"></p>
-<pre><code><span><span class="co">#&gt; Trying to get data for Cayman Islands.</span></span></code></pre>
-<pre><code><span><span class="co">#&gt; Warning in rm(df_geom): object 'df_geom' not found</span></span>
-<span><span class="co">#&gt; Geometry size for CYM is 102824......</span></span>
-<span><span class="co">#&gt; Simplified Geometry size for CYM is 19904 aka 19.36% .....</span></span></code></pre>
-<p><img src="get-started_files/figure-html/example-f_get_admin2_boundaries-11.png" width="700"></p>
-<pre><code><span><span class="co">#&gt; Trying to get data for Chile.</span></span>
+<span><span class="co">#&gt; Trying to get data for Canada.</span></span>
+<span><span class="co">#&gt; Warning in rm(df_geom): object 'df_geom' not found</span></span>
+<span><span class="co">#&gt; An Error Occurred</span></span>
+<span><span class="co">#&gt; Trying to get data for Chile.</span></span>
+<span><span class="co">#&gt; Warning in rm(df_geom): object 'df_geom' not found</span></span>
+<span><span class="co">#&gt; An Error Occurred</span></span>
+<span><span class="co">#&gt; Trying to get data for Chile.</span></span>
 <span><span class="co">#&gt; Warning in rm(df_geom): object 'df_geom' not found</span></span>
 <span><span class="co">#&gt; An Error Occurred</span></span>
 <span><span class="co">#&gt; Trying to get data for Colombia.</span></span>
 <span><span class="co">#&gt; Warning in rm(df_geom): object 'df_geom' not found</span></span>
 <span><span class="co">#&gt; An Error Occurred</span></span>
-<span><span class="co">#&gt; Trying to get data for Costa Rica.</span></span></code></pre>
+<span><span class="co">#&gt; Trying to get data for Colombia.</span></span></code></pre>
+<pre><code><span><span class="co">#&gt; Warning in rm(df_geom): object 'df_geom' not found</span></span>
+<span><span class="co">#&gt; Geometry size for COL is 15920760......</span></span>
+<span><span class="co">#&gt; Simplified Geometry size for COL is 271640 aka 1.71% .....</span></span></code></pre>
+<p><img src="get-started_files/figure-html/example-f_get_admin2_boundaries-21.png" width="700"></p>
+<pre><code><span><span class="co">#&gt; Trying to get data for Costa Rica.</span></span></code></pre>
 <pre><code><span><span class="co">#&gt; Warning in rm(df_geom): object 'df_geom' not found</span></span>
 <span><span class="co">#&gt; Geometry size for CRI is 3038848......</span></span>
-<span><span class="co">#&gt; 61 duplicate in adm2_source_code for: CRI</span></span>
 <span><span class="co">#&gt; Simplified Geometry size for CRI is 172848 aka 5.69% .....</span></span></code></pre>
-<p><img src="get-started_files/figure-html/example-f_get_admin2_boundaries-12.png" width="700"></p>
+<p><img src="get-started_files/figure-html/example-f_get_admin2_boundaries-22.png" width="700"></p>
+<pre><code><span><span class="co">#&gt; Trying to get data for Costa Rica.</span></span></code></pre>
+<pre><code><span><span class="co">#&gt; Warning in rm(df_geom): object 'df_geom' not found</span></span>
+<span><span class="co">#&gt; Geometry size for CRI is 1352208......</span></span>
+<span><span class="co">#&gt; Simplified Geometry size for CRI is 53480 aka 3.96% .....</span></span></code></pre>
+<p><img src="get-started_files/figure-html/example-f_get_admin2_boundaries-23.png" width="700"></p>
 <pre><code><span><span class="co">#&gt; Trying to get data for Cuba.</span></span></code></pre>
 <pre><code><span><span class="co">#&gt; Warning in rm(df_geom): object 'df_geom' not found</span></span>
 <span><span class="co">#&gt; Geometry size for CUB is 2725288......</span></span>
 <span><span class="co">#&gt; 1 duplicate in gis_name for: CUB</span></span>
 <span><span class="co">#&gt; An Error Occurred during geometry simplification</span></span></code></pre>
-<p><img src="get-started_files/figure-html/example-f_get_admin2_boundaries-13.png" width="700"></p>
+<p><img src="get-started_files/figure-html/example-f_get_admin2_boundaries-24.png" width="700"></p>
+<pre><code><span><span class="co">#&gt; &lt;simpleError in wk_handle.wk_wkb(wkb, s2_geography_writer(oriented = oriented,     check = check, tessellate_tol = if (planar) {        tessellate_tol_m/s2_earth_radius_meters()    } else {        Inf    })): Loop 0 is not valid: Edge 1295 has duplicate vertex with edge 1302&gt;</span></span>
+<span><span class="co">#&gt; Trying to get data for Cuba.</span></span></code></pre>
+<pre><code><span><span class="co">#&gt; Warning in rm(df_geom): object 'df_geom' not found</span></span>
+<span><span class="co">#&gt; Geometry size for CUB is 1928120......</span></span>
+<span><span class="co">#&gt; An Error Occurred during geometry simplification</span></span></code></pre>
+<p><img src="get-started_files/figure-html/example-f_get_admin2_boundaries-25.png" width="700"></p>
 <pre><code><span><span class="co">#&gt; &lt;simpleError in wk_handle.wk_wkb(wkb, s2_geography_writer(oriented = oriented,     check = check, tessellate_tol = if (planar) {        tessellate_tol_m/s2_earth_radius_meters()    } else {        Inf    })): Loop 0 is not valid: Edge 1295 has duplicate vertex with edge 1302&gt;</span></span>
 <span><span class="co">#&gt; Trying to get data for Curaçao.</span></span></code></pre>
 <pre><code><span><span class="co">#&gt; Warning in rm(df_geom): object 'df_geom' not found</span></span>
 <span><span class="co">#&gt; Geometry size for CUW is 101752......</span></span>
 <span><span class="co">#&gt; Simplified Geometry size for CUW is 15088 aka 14.83% .....</span></span></code></pre>
-<p><img src="get-started_files/figure-html/example-f_get_admin2_boundaries-14.png" width="700"></p>
+<p><img src="get-started_files/figure-html/example-f_get_admin2_boundaries-26.png" width="700"></p>
+<pre><code><span><span class="co">#&gt; Trying to get data for Curaçao.</span></span></code></pre>
+<pre><code><span><span class="co">#&gt; Warning in rm(df_geom): object 'df_geom' not found</span></span>
+<span><span class="co">#&gt; Geometry size for CUW is 101504......</span></span>
+<span><span class="co">#&gt; Simplified Geometry size for CUW is 14840 aka 14.62% .....</span></span></code></pre>
+<p><img src="get-started_files/figure-html/example-f_get_admin2_boundaries-27.png" width="700"></p>
+<pre><code><span><span class="co">#&gt; Trying to get data for Cayman Islands.</span></span></code></pre>
+<pre><code><span><span class="co">#&gt; Warning in rm(df_geom): object 'df_geom' not found</span></span>
+<span><span class="co">#&gt; Geometry size for CYM is 102824......</span></span>
+<span><span class="co">#&gt; Simplified Geometry size for CYM is 19904 aka 19.36% .....</span></span></code></pre>
+<p><img src="get-started_files/figure-html/example-f_get_admin2_boundaries-28.png" width="700"></p>
+<pre><code><span><span class="co">#&gt; Trying to get data for Cayman Islands.</span></span></code></pre>
+<pre><code><span><span class="co">#&gt; Warning in rm(df_geom): object 'df_geom' not found</span></span>
+<span><span class="co">#&gt; Geometry size for CYM is 102176......</span></span>
+<span><span class="co">#&gt; Simplified Geometry size for CYM is 19256 aka 18.85% .....</span></span></code></pre>
+<p><img src="get-started_files/figure-html/example-f_get_admin2_boundaries-29.png" width="700"></p>
 <pre><code><span><span class="co">#&gt; Trying to get data for Dominica.</span></span></code></pre>
 <pre><code><span><span class="co">#&gt; Warning in rm(df_geom): object 'df_geom' not found</span></span>
 <span><span class="co">#&gt; Geometry size for DMA is 101736......</span></span>
 <span><span class="co">#&gt; Simplified Geometry size for DMA is 25256 aka 24.83% .....</span></span></code></pre>
-<p><img src="get-started_files/figure-html/example-f_get_admin2_boundaries-15.png" width="700"></p>
+<p><img src="get-started_files/figure-html/example-f_get_admin2_boundaries-30.png" width="700"></p>
+<pre><code><span><span class="co">#&gt; Trying to get data for Dominica.</span></span></code></pre>
+<pre><code><span><span class="co">#&gt; Warning in rm(df_geom): object 'df_geom' not found</span></span>
+<span><span class="co">#&gt; Geometry size for DMA is 100792......</span></span>
+<span><span class="co">#&gt; Simplified Geometry size for DMA is 24312 aka 24.12% .....</span></span></code></pre>
+<p><img src="get-started_files/figure-html/example-f_get_admin2_boundaries-31.png" width="700"></p>
 <pre><code><span><span class="co">#&gt; Trying to get data for Dominican Republic.</span></span></code></pre>
 <pre><code><span><span class="co">#&gt; Warning in rm(df_geom): object 'df_geom' not found</span></span>
 <span><span class="co">#&gt; Geometry size for DOM is 7343400......</span></span>
 <span><span class="co">#&gt; An Error Occurred during geometry simplification</span></span></code></pre>
-<p><img src="get-started_files/figure-html/example-f_get_admin2_boundaries-16.png" width="700"></p>
+<p><img src="get-started_files/figure-html/example-f_get_admin2_boundaries-32.png" width="700"></p>
 <pre><code><span><span class="co">#&gt; &lt;simpleError in wk_handle.wk_wkb(wkb, s2_geography_writer(oriented = oriented,     check = check, tessellate_tol = if (planar) {        tessellate_tol_m/s2_earth_radius_meters()    } else {        Inf    })): Loop 0 is not valid: Edge 2311 has duplicate vertex with edge 2314&gt;</span></span>
-<span><span class="co">#&gt; Trying to get data for Ecuador.</span></span></code></pre>
+<span><span class="co">#&gt; Trying to get data for Dominican Republic.</span></span></code></pre>
+<pre><code><span><span class="co">#&gt; Warning in rm(df_geom): object 'df_geom' not found</span></span>
+<span><span class="co">#&gt; Geometry size for DOM is 3622656......</span></span>
+<span><span class="co">#&gt; Simplified Geometry size for DOM is 103456 aka 2.86% .....</span></span></code></pre>
+<p><img src="get-started_files/figure-html/example-f_get_admin2_boundaries-33.png" width="700"></p>
+<pre><code><span><span class="co">#&gt; Trying to get data for Ecuador.</span></span></code></pre>
 <pre><code><span><span class="co">#&gt; Warning in rm(df_geom): object 'df_geom' not found</span></span>
 <span><span class="co">#&gt; Geometry size for ECU is 18411464......</span></span>
 <span><span class="co">#&gt; 2 duplicate in gis_name for: ECU</span></span>
 <span><span class="co">#&gt; An Error Occurred during geometry simplification</span></span></code></pre>
-<p><img src="get-started_files/figure-html/example-f_get_admin2_boundaries-17.png" width="700"></p>
+<p><img src="get-started_files/figure-html/example-f_get_admin2_boundaries-34.png" width="700"></p>
 <pre><code><span><span class="co">#&gt; &lt;simpleError in wk_handle.wk_wkb(wkb, s2_geography_writer(oriented = oriented,     check = check, tessellate_tol = if (planar) {        tessellate_tol_m/s2_earth_radius_meters()    } else {        Inf    })): Loop 0 is not valid: Edge 13759 has duplicate vertex with edge 13762&gt;</span></span>
-<span><span class="co">#&gt; Trying to get data for El Salvador.</span></span></code></pre>
+<span><span class="co">#&gt; Trying to get data for Ecuador.</span></span></code></pre>
 <pre><code><span><span class="co">#&gt; Warning in rm(df_geom): object 'df_geom' not found</span></span>
-<span><span class="co">#&gt; Geometry size for SLV is 5429928......</span></span>
-<span><span class="co">#&gt; 6 duplicate in gis_name for: SLV</span></span>
-<span><span class="co">#&gt; Simplified Geometry size for SLV is 394784 aka 7.27% .....</span></span></code></pre>
-<p><img src="get-started_files/figure-html/example-f_get_admin2_boundaries-18.png" width="700"></p>
-<pre><code><span><span class="co">#&gt; Trying to get data for Falkland Islands.</span></span></code></pre>
-<pre><code><span><span class="co">#&gt; Warning in rm(df_geom): object 'df_geom' not found</span></span>
-<span><span class="co">#&gt; Geometry size for FLK is 5960......</span></span>
-<span><span class="co">#&gt; Simplified Geometry size for FLK is 5792 aka 97.18% .....</span></span></code></pre>
-<p><img src="get-started_files/figure-html/example-f_get_admin2_boundaries-19.png" width="700"></p>
-<pre><code><span><span class="co">#&gt; Trying to get data for French Guiana.</span></span></code></pre>
-<pre><code><span><span class="co">#&gt; Warning in rm(df_geom): object 'df_geom' not found</span></span>
-<span><span class="co">#&gt; Geometry size for GUF is 1296096......</span></span>
-<span><span class="co">#&gt; Simplified Geometry size for GUF is 80480 aka 6.21% .....</span></span></code></pre>
-<p><img src="get-started_files/figure-html/example-f_get_admin2_boundaries-20.png" width="700"></p>
-<pre><code><span><span class="co">#&gt; Trying to get data for Greenland.</span></span></code></pre>
-<pre><code><span><span class="co">#&gt; Warning in rm(df_geom): object 'df_geom' not found</span></span>
-<span><span class="co">#&gt; Geometry size for GRL is 18526216......</span></span>
-<span><span class="co">#&gt; Warning in f_get_admin2_boundaries(ISO3 = code, simplify = TRUE, dTolerance = 500): NAs found in adm2_source_code for: GRL</span></span>
-<span><span class="co">#&gt; 4 duplicate in adm2_source_code for: GRL</span></span>
-<span><span class="co">#&gt; Simplified Geometry size for GRL is 1125176 aka 6.07% .....</span></span></code></pre>
-<p><img src="get-started_files/figure-html/example-f_get_admin2_boundaries-21.png" width="700"></p>
-<pre><code><span><span class="co">#&gt; Trying to get data for Grenada.</span></span></code></pre>
-<pre><code><span><span class="co">#&gt; Warning in rm(df_geom): object 'df_geom' not found</span></span>
-<span><span class="co">#&gt; Geometry size for GRD is 126656......</span></span>
-<span><span class="co">#&gt; 6 duplicate in adm2_source_code for: GRD</span></span>
-<span><span class="co">#&gt; Simplified Geometry size for GRD is 24416 aka 19.28% .....</span></span></code></pre>
-<p><img src="get-started_files/figure-html/example-f_get_admin2_boundaries-22.png" width="700"></p>
+<span><span class="co">#&gt; Geometry size for ECU is 8837168......</span></span>
+<span><span class="co">#&gt; Simplified Geometry size for ECU is 213928 aka 2.42% .....</span></span></code></pre>
+<p><img src="get-started_files/figure-html/example-f_get_admin2_boundaries-35.png" width="700"></p>
 <pre><code><span><span class="co">#&gt; Trying to get data for Guadeloupe.</span></span></code></pre>
 <pre><code><span><span class="co">#&gt; Warning in rm(df_geom): object 'df_geom' not found</span></span>
 <span><span class="co">#&gt; Geometry size for GLP is 771888......</span></span>
 <span><span class="co">#&gt; Simplified Geometry size for GLP is 21072 aka 2.73% .....</span></span></code></pre>
-<p><img src="get-started_files/figure-html/example-f_get_admin2_boundaries-23.png" width="700"></p>
+<p><img src="get-started_files/figure-html/example-f_get_admin2_boundaries-36.png" width="700"></p>
+<pre><code><span><span class="co">#&gt; Trying to get data for Guadeloupe.</span></span></code></pre>
+<pre><code><span><span class="co">#&gt; Warning in rm(df_geom): object 'df_geom' not found</span></span>
+<span><span class="co">#&gt; Geometry size for GLP is 667552......</span></span>
+<span><span class="co">#&gt; Simplified Geometry size for GLP is 17840 aka 2.67% .....</span></span></code></pre>
+<p><img src="get-started_files/figure-html/example-f_get_admin2_boundaries-37.png" width="700"></p>
+<pre><code><span><span class="co">#&gt; Trying to get data for Grenada.</span></span></code></pre>
+<pre><code><span><span class="co">#&gt; Warning in rm(df_geom): object 'df_geom' not found</span></span>
+<span><span class="co">#&gt; Geometry size for GRD is 126656......</span></span>
+<span><span class="co">#&gt; Simplified Geometry size for GRD is 24416 aka 19.28% .....</span></span></code></pre>
+<p><img src="get-started_files/figure-html/example-f_get_admin2_boundaries-38.png" width="700"></p>
+<pre><code><span><span class="co">#&gt; Trying to get data for Grenada.</span></span></code></pre>
+<pre><code><span><span class="co">#&gt; Warning in rm(df_geom): object 'df_geom' not found</span></span>
+<span><span class="co">#&gt; Geometry size for GRD is 126296......</span></span>
+<span><span class="co">#&gt; Simplified Geometry size for GRD is 24056 aka 19.05% .....</span></span></code></pre>
+<p><img src="get-started_files/figure-html/example-f_get_admin2_boundaries-39.png" width="700"></p>
 <pre><code><span><span class="co">#&gt; Trying to get data for Guatemala.</span></span></code></pre>
 <pre><code><span><span class="co">#&gt; Warning in rm(df_geom): object 'df_geom' not found</span></span>
 <span><span class="co">#&gt; Geometry size for GTM is 2194384......</span></span>
 <span><span class="co">#&gt; 6 duplicate in gis_name for: GTM</span></span>
 <span><span class="co">#&gt; Simplified Geometry size for GTM is 557272 aka 25.4% .....</span></span></code></pre>
-<p><img src="get-started_files/figure-html/example-f_get_admin2_boundaries-24.png" width="700"></p>
+<p><img src="get-started_files/figure-html/example-f_get_admin2_boundaries-40.png" width="700"></p>
+<pre><code><span><span class="co">#&gt; Trying to get data for Guatemala.</span></span></code></pre>
+<pre><code><span><span class="co">#&gt; Warning in rm(df_geom): object 'df_geom' not found</span></span>
+<span><span class="co">#&gt; Geometry size for GTM is 717576......</span></span>
+<span><span class="co">#&gt; Simplified Geometry size for GTM is 77816 aka 10.84% .....</span></span></code></pre>
+<p><img src="get-started_files/figure-html/example-f_get_admin2_boundaries-41.png" width="700"></p>
+<pre><code><span><span class="co">#&gt; Trying to get data for French Guiana.</span></span></code></pre>
+<pre><code><span><span class="co">#&gt; Warning in rm(df_geom): object 'df_geom' not found</span></span>
+<span><span class="co">#&gt; Geometry size for GUF is 1296096......</span></span>
+<span><span class="co">#&gt; Simplified Geometry size for GUF is 80480 aka 6.21% .....</span></span></code></pre>
+<p><img src="get-started_files/figure-html/example-f_get_admin2_boundaries-42.png" width="700"></p>
+<pre><code><span><span class="co">#&gt; Trying to get data for French Guiana.</span></span></code></pre>
+<pre><code><span><span class="co">#&gt; Warning in rm(df_geom): object 'df_geom' not found</span></span>
+<span><span class="co">#&gt; Geometry size for GUF is 365368......</span></span>
+<span><span class="co">#&gt; Simplified Geometry size for GUF is 26984 aka 7.39% .....</span></span></code></pre>
+<p><img src="get-started_files/figure-html/example-f_get_admin2_boundaries-43.png" width="700"></p>
 <pre><code><span><span class="co">#&gt; Trying to get data for Guyana.</span></span></code></pre>
 <pre><code><span><span class="co">#&gt; Warning in rm(df_geom): object 'df_geom' not found</span></span>
 <span><span class="co">#&gt; Geometry size for GUY is 275296......</span></span>
 <span><span class="co">#&gt; Simplified Geometry size for GUY is 77328 aka 28.09% .....</span></span></code></pre>
-<p><img src="get-started_files/figure-html/example-f_get_admin2_boundaries-25.png" width="700"></p>
+<p><img src="get-started_files/figure-html/example-f_get_admin2_boundaries-44.png" width="700"></p>
+<pre><code><span><span class="co">#&gt; Trying to get data for Guyana.</span></span></code></pre>
+<pre><code><span><span class="co">#&gt; Warning in rm(df_geom): object 'df_geom' not found</span></span>
+<span><span class="co">#&gt; Geometry size for GUY is 200584......</span></span>
+<span><span class="co">#&gt; Simplified Geometry size for GUY is 48120 aka 23.99% .....</span></span></code></pre>
+<p><img src="get-started_files/figure-html/example-f_get_admin2_boundaries-45.png" width="700"></p>
+<pre><code><span><span class="co">#&gt; Trying to get data for Honduras.</span></span>
+<span><span class="co">#&gt; Warning in rm(df_geom): object 'df_geom' not found</span></span>
+<span><span class="co">#&gt; An Error Occurred</span></span>
+<span><span class="co">#&gt; Trying to get data for Honduras.</span></span></code></pre>
+<pre><code><span><span class="co">#&gt; Warning in rm(df_geom): object 'df_geom' not found</span></span>
+<span><span class="co">#&gt; Geometry size for HND is 11839648......</span></span>
+<span><span class="co">#&gt; Simplified Geometry size for HND is 103504 aka 0.87% .....</span></span></code></pre>
+<p><img src="get-started_files/figure-html/example-f_get_admin2_boundaries-46.png" width="700"></p>
 <pre><code><span><span class="co">#&gt; Trying to get data for Haiti.</span></span></code></pre>
 <pre><code><span><span class="co">#&gt; Warning in rm(df_geom): object 'df_geom' not found</span></span>
 <span><span class="co">#&gt; Geometry size for HTI is 1017744......</span></span>
 <span><span class="co">#&gt; An Error Occurred during geometry simplification</span></span></code></pre>
-<p><img src="get-started_files/figure-html/example-f_get_admin2_boundaries-26.png" width="700"></p>
+<p><img src="get-started_files/figure-html/example-f_get_admin2_boundaries-47.png" width="700"></p>
 <pre><code><span><span class="co">#&gt; &lt;simpleError in wk_handle.wk_wkb(wkb, s2_geography_writer(oriented = oriented,     check = check, tessellate_tol = if (planar) {        tessellate_tol_m/s2_earth_radius_meters()    } else {        Inf    })): Loop 0 is not valid: Edge 644 has duplicate vertex with edge 647&gt;</span></span>
-<span><span class="co">#&gt; Trying to get data for Honduras.</span></span>
-<span><span class="co">#&gt; Warning in rm(df_geom): object 'df_geom' not found</span></span>
-<span><span class="co">#&gt; An Error Occurred</span></span>
+<span><span class="co">#&gt; Trying to get data for Haiti.</span></span></code></pre>
+<pre><code><span><span class="co">#&gt; Warning in rm(df_geom): object 'df_geom' not found</span></span>
+<span><span class="co">#&gt; Geometry size for HTI is 270240......</span></span>
+<span><span class="co">#&gt; An Error Occurred during geometry simplification</span></span></code></pre>
+<p><img src="get-started_files/figure-html/example-f_get_admin2_boundaries-48.png" width="700"></p>
+<pre><code><span><span class="co">#&gt; &lt;simpleError in wk_handle.wk_wkb(wkb, s2_geography_writer(oriented = oriented,     check = check, tessellate_tol = if (planar) {        tessellate_tol_m/s2_earth_radius_meters()    } else {        Inf    })): Loop 0 is not valid: Edge 1110 has duplicate vertex with edge 1114&gt;</span></span>
 <span><span class="co">#&gt; Trying to get data for Jamaica.</span></span></code></pre>
 <pre><code><span><span class="co">#&gt; Warning in rm(df_geom): object 'df_geom' not found</span></span>
 <span><span class="co">#&gt; Geometry size for JAM is 272808......</span></span>
 <span><span class="co">#&gt; Simplified Geometry size for JAM is 39176 aka 14.36% .....</span></span></code></pre>
-<p><img src="get-started_files/figure-html/example-f_get_admin2_boundaries-27.png" width="700"></p>
-<pre><code><span><span class="co">#&gt; Trying to get data for Martinique.</span></span></code></pre>
+<p><img src="get-started_files/figure-html/example-f_get_admin2_boundaries-49.png" width="700"></p>
+<pre><code><span><span class="co">#&gt; Trying to get data for Jamaica.</span></span></code></pre>
 <pre><code><span><span class="co">#&gt; Warning in rm(df_geom): object 'df_geom' not found</span></span>
-<span><span class="co">#&gt; Geometry size for MTQ is 120208......</span></span>
-<span><span class="co">#&gt; Simplified Geometry size for MTQ is 57200 aka 47.58% .....</span></span></code></pre>
-<p><img src="get-started_files/figure-html/example-f_get_admin2_boundaries-28.png" width="700"></p>
-<pre><code><span><span class="co">#&gt; Trying to get data for Mexico.</span></span>
-<span><span class="co">#&gt; Warning in rm(df_geom): object 'df_geom' not found</span></span>
-<span><span class="co">#&gt; An Error Occurred</span></span>
-<span><span class="co">#&gt; Trying to get data for Montserrat.</span></span></code></pre>
-<pre><code><span><span class="co">#&gt; Warning in rm(df_geom): object 'df_geom' not found</span></span>
-<span><span class="co">#&gt; Geometry size for MSR is 5960......</span></span>
-<span><span class="co">#&gt; Simplified Geometry size for MSR is 5792 aka 97.18% .....</span></span></code></pre>
-<p><img src="get-started_files/figure-html/example-f_get_admin2_boundaries-29.png" width="700"></p>
-<pre><code><span><span class="co">#&gt; Trying to get data for Nicaragua.</span></span></code></pre>
-<pre><code><span><span class="co">#&gt; Warning in rm(df_geom): object 'df_geom' not found</span></span>
-<span><span class="co">#&gt; Geometry size for NIC is 6610840......</span></span>
-<span><span class="co">#&gt; Simplified Geometry size for NIC is 314528 aka 4.76% .....</span></span></code></pre>
-<p><img src="get-started_files/figure-html/example-f_get_admin2_boundaries-30.png" width="700"></p>
-<pre><code><span><span class="co">#&gt; Trying to get data for Panama.</span></span></code></pre>
-<pre><code><span><span class="co">#&gt; Warning in rm(df_geom): object 'df_geom' not found</span></span>
-<span><span class="co">#&gt; Geometry size for PAN is 3632744......</span></span>
-<span><span class="co">#&gt; An Error Occurred during geometry simplification</span></span></code></pre>
-<p><img src="get-started_files/figure-html/example-f_get_admin2_boundaries-31.png" width="700"></p>
-<pre><code><span><span class="co">#&gt; &lt;simpleError in wk_handle.wk_wkb(wkb, s2_geography_writer(oriented = oriented,     check = check, tessellate_tol = if (planar) {        tessellate_tol_m/s2_earth_radius_meters()    } else {        Inf    })): Loop 0 is not valid: Edge 90 has duplicate vertex with edge 93&gt;</span></span>
-<span><span class="co">#&gt; Trying to get data for Paraguay.</span></span></code></pre>
-<pre><code><span><span class="co">#&gt; Warning in rm(df_geom): object 'df_geom' not found</span></span>
-<span><span class="co">#&gt; Geometry size for PRY is 16888248......</span></span>
-<span><span class="co">#&gt; 1 duplicate in gis_name for: PRY</span></span>
-<span><span class="co">#&gt; Simplified Geometry size for PRY is 543488 aka 3.22% .....</span></span></code></pre>
-<p><img src="get-started_files/figure-html/example-f_get_admin2_boundaries-32.png" width="700"></p>
-<pre><code><span><span class="co">#&gt; Trying to get data for Peru.</span></span></code></pre>
-<pre><code><span><span class="co">#&gt; Warning in rm(df_geom): object 'df_geom' not found</span></span>
-<span><span class="co">#&gt; Geometry size for PER is 11357328......</span></span>
-<span><span class="co">#&gt; An Error Occurred during geometry simplification</span></span></code></pre>
-<p><img src="get-started_files/figure-html/example-f_get_admin2_boundaries-33.png" width="700"></p>
-<pre><code><span><span class="co">#&gt; &lt;simpleError in wk_handle.wk_wkb(wkb, s2_geography_writer(oriented = oriented,     check = check, tessellate_tol = if (planar) {        tessellate_tol_m/s2_earth_radius_meters()    } else {        Inf    })): Loop 0 is not valid: Edge 2 has duplicate vertex with edge 8478&gt;</span></span>
-<span><span class="co">#&gt; Trying to get data for Puerto Rico.</span></span></code></pre>
-<pre><code><span><span class="co">#&gt; Warning in rm(df_geom): object 'df_geom' not found</span></span>
-<span><span class="co">#&gt; Geometry size for PRI is 5960......</span></span>
-<span><span class="co">#&gt; Simplified Geometry size for PRI is 5792 aka 97.18% .....</span></span></code></pre>
-<p><img src="get-started_files/figure-html/example-f_get_admin2_boundaries-34.png" width="700"></p>
-<pre><code><span><span class="co">#&gt; Trying to get data for Saint Martin (French part).</span></span></code></pre>
-<pre><code><span><span class="co">#&gt; Warning in rm(df_geom): object 'df_geom' not found</span></span>
-<span><span class="co">#&gt; Geometry size for MAF is 5960......</span></span>
-<span><span class="co">#&gt; Simplified Geometry size for MAF is 5792 aka 97.18% .....</span></span></code></pre>
-<p><img src="get-started_files/figure-html/example-f_get_admin2_boundaries-35.png" width="700"></p>
-<pre><code><span><span class="co">#&gt; Trying to get data for Sint Maarten.</span></span></code></pre>
-<pre><code><span><span class="co">#&gt; Warning in rm(df_geom): object 'df_geom' not found</span></span>
-<span><span class="co">#&gt; Geometry size for SXM is 5960......</span></span>
-<span><span class="co">#&gt; Simplified Geometry size for SXM is 5792 aka 97.18% .....</span></span></code></pre>
-<p><img src="get-started_files/figure-html/example-f_get_admin2_boundaries-36.png" width="700"></p>
-<pre><code><span><span class="co">#&gt; Trying to get data for St. Barthélemy.</span></span></code></pre>
-<pre><code><span><span class="co">#&gt; Warning in rm(df_geom): object 'df_geom' not found</span></span>
-<span><span class="co">#&gt; Geometry size for BLM is 5960......</span></span>
-<span><span class="co">#&gt; Simplified Geometry size for BLM is 5792 aka 97.18% .....</span></span></code></pre>
-<p><img src="get-started_files/figure-html/example-f_get_admin2_boundaries-37.png" width="700"></p>
+<span><span class="co">#&gt; Geometry size for JAM is 271600......</span></span>
+<span><span class="co">#&gt; Simplified Geometry size for JAM is 37968 aka 13.98% .....</span></span></code></pre>
+<p><img src="get-started_files/figure-html/example-f_get_admin2_boundaries-50.png" width="700"></p>
 <pre><code><span><span class="co">#&gt; Trying to get data for St. Kitts &amp; Nevis.</span></span></code></pre>
 <pre><code><span><span class="co">#&gt; Warning in rm(df_geom): object 'df_geom' not found</span></span>
 <span><span class="co">#&gt; Geometry size for KNA is 98888......</span></span>
 <span><span class="co">#&gt; Simplified Geometry size for KNA is 28808 aka 29.13% .....</span></span></code></pre>
-<p><img src="get-started_files/figure-html/example-f_get_admin2_boundaries-38.png" width="700"></p>
+<p><img src="get-started_files/figure-html/example-f_get_admin2_boundaries-51.png" width="700"></p>
+<pre><code><span><span class="co">#&gt; Trying to get data for St. Kitts &amp; Nevis.</span></span></code></pre>
+<pre><code><span><span class="co">#&gt; Warning in rm(df_geom): object 'df_geom' not found</span></span>
+<span><span class="co">#&gt; Geometry size for KNA is 97688......</span></span>
+<span><span class="co">#&gt; Simplified Geometry size for KNA is 27608 aka 28.26% .....</span></span></code></pre>
+<p><img src="get-started_files/figure-html/example-f_get_admin2_boundaries-52.png" width="700"></p>
 <pre><code><span><span class="co">#&gt; Trying to get data for St. Lucia.</span></span></code></pre>
 <pre><code><span><span class="co">#&gt; Warning in rm(df_geom): object 'df_geom' not found</span></span>
 <span><span class="co">#&gt; Geometry size for LCA is 107488......</span></span>
 <span><span class="co">#&gt; Simplified Geometry size for LCA is 26048 aka 24.23% .....</span></span></code></pre>
-<p><img src="get-started_files/figure-html/example-f_get_admin2_boundaries-39.png" width="700"></p>
+<p><img src="get-started_files/figure-html/example-f_get_admin2_boundaries-53.png" width="700"></p>
+<pre><code><span><span class="co">#&gt; Trying to get data for St. Lucia.</span></span></code></pre>
+<pre><code><span><span class="co">#&gt; Warning in rm(df_geom): object 'df_geom' not found</span></span>
+<span><span class="co">#&gt; Geometry size for LCA is 106544......</span></span>
+<span><span class="co">#&gt; Simplified Geometry size for LCA is 25104 aka 23.56% .....</span></span></code></pre>
+<p><img src="get-started_files/figure-html/example-f_get_admin2_boundaries-54.png" width="700"></p>
+<pre><code><span><span class="co">#&gt; Trying to get data for Saint Martin (French part).</span></span></code></pre>
+<pre><code><span><span class="co">#&gt; Warning in rm(df_geom): object 'df_geom' not found</span></span>
+<span><span class="co">#&gt; Geometry size for MAF is 5960......</span></span>
+<span><span class="co">#&gt; Simplified Geometry size for MAF is 5792 aka 97.18% .....</span></span></code></pre>
+<p><img src="get-started_files/figure-html/example-f_get_admin2_boundaries-55.png" width="700"></p>
+<pre><code><span><span class="co">#&gt; Trying to get data for Saint Martin (French part).</span></span></code></pre>
+<pre><code><span><span class="co">#&gt; Warning in rm(df_geom): object 'df_geom' not found</span></span>
+<span><span class="co">#&gt; Geometry size for MAF is 61848......</span></span>
+<span><span class="co">#&gt; Simplified Geometry size for MAF is 12744 aka 20.61% .....</span></span></code></pre>
+<p><img src="get-started_files/figure-html/example-f_get_admin2_boundaries-56.png" width="700"></p>
+<pre><code><span><span class="co">#&gt; Trying to get data for Mexico.</span></span>
+<span><span class="co">#&gt; Warning in rm(df_geom): object 'df_geom' not found</span></span>
+<span><span class="co">#&gt; An Error Occurred</span></span>
+<span><span class="co">#&gt; Trying to get data for Mexico.</span></span></code></pre>
+<pre><code><span><span class="co">#&gt; Warning in rm(df_geom): object 'df_geom' not found</span></span>
+<span><span class="co">#&gt; Geometry size for MEX is 13287184......</span></span>
+<span><span class="co">#&gt; Simplified Geometry size for MEX is 748264 aka 5.63% .....</span></span></code></pre>
+<p><img src="get-started_files/figure-html/example-f_get_admin2_boundaries-57.png" width="700"></p>
+<pre><code><span><span class="co">#&gt; Trying to get data for Montserrat.</span></span></code></pre>
+<pre><code><span><span class="co">#&gt; Warning in rm(df_geom): object 'df_geom' not found</span></span>
+<span><span class="co">#&gt; Geometry size for MSR is 5960......</span></span>
+<span><span class="co">#&gt; Simplified Geometry size for MSR is 5792 aka 97.18% .....</span></span></code></pre>
+<p><img src="get-started_files/figure-html/example-f_get_admin2_boundaries-58.png" width="700"></p>
+<pre><code><span><span class="co">#&gt; Trying to get data for Montserrat.</span></span></code></pre>
+<pre><code><span><span class="co">#&gt; Warning in rm(df_geom): object 'df_geom' not found</span></span>
+<span><span class="co">#&gt; Geometry size for MSR is 5960......</span></span>
+<span><span class="co">#&gt; Simplified Geometry size for MSR is 5792 aka 97.18% .....</span></span></code></pre>
+<p><img src="get-started_files/figure-html/example-f_get_admin2_boundaries-59.png" width="700"></p>
+<pre><code><span><span class="co">#&gt; Trying to get data for Martinique.</span></span></code></pre>
+<pre><code><span><span class="co">#&gt; Warning in rm(df_geom): object 'df_geom' not found</span></span>
+<span><span class="co">#&gt; Geometry size for MTQ is 120208......</span></span>
+<span><span class="co">#&gt; Simplified Geometry size for MTQ is 57200 aka 47.58% .....</span></span></code></pre>
+<p><img src="get-started_files/figure-html/example-f_get_admin2_boundaries-60.png" width="700"></p>
+<pre><code><span><span class="co">#&gt; Trying to get data for Martinique.</span></span></code></pre>
+<pre><code><span><span class="co">#&gt; Warning in rm(df_geom): object 'df_geom' not found</span></span>
+<span><span class="co">#&gt; Geometry size for MTQ is 62256......</span></span>
+<span><span class="co">#&gt; Simplified Geometry size for MTQ is 17328 aka 27.83% .....</span></span></code></pre>
+<p><img src="get-started_files/figure-html/example-f_get_admin2_boundaries-61.png" width="700"></p>
+<pre><code><span><span class="co">#&gt; Trying to get data for Nicaragua.</span></span></code></pre>
+<pre><code><span><span class="co">#&gt; Warning in rm(df_geom): object 'df_geom' not found</span></span>
+<span><span class="co">#&gt; Geometry size for NIC is 6610840......</span></span>
+<span><span class="co">#&gt; Simplified Geometry size for NIC is 314528 aka 4.76% .....</span></span></code></pre>
+<p><img src="get-started_files/figure-html/example-f_get_admin2_boundaries-62.png" width="700"></p>
+<pre><code><span><span class="co">#&gt; Trying to get data for Nicaragua.</span></span></code></pre>
+<pre><code><span><span class="co">#&gt; Warning in rm(df_geom): object 'df_geom' not found</span></span>
+<span><span class="co">#&gt; Geometry size for NIC is 3560064......</span></span>
+<span><span class="co">#&gt; Simplified Geometry size for NIC is 98816 aka 2.78% .....</span></span></code></pre>
+<p><img src="get-started_files/figure-html/example-f_get_admin2_boundaries-63.png" width="700"></p>
+<pre><code><span><span class="co">#&gt; Trying to get data for Panama.</span></span></code></pre>
+<pre><code><span><span class="co">#&gt; Warning in rm(df_geom): object 'df_geom' not found</span></span>
+<span><span class="co">#&gt; Geometry size for PAN is 3632744......</span></span>
+<span><span class="co">#&gt; An Error Occurred during geometry simplification</span></span></code></pre>
+<p><img src="get-started_files/figure-html/example-f_get_admin2_boundaries-64.png" width="700"></p>
+<pre><code><span><span class="co">#&gt; &lt;simpleError in wk_handle.wk_wkb(wkb, s2_geography_writer(oriented = oriented,     check = check, tessellate_tol = if (planar) {        tessellate_tol_m/s2_earth_radius_meters()    } else {        Inf    })): Loop 0 is not valid: Edge 90 has duplicate vertex with edge 93&gt;</span></span>
+<span><span class="co">#&gt; Trying to get data for Panama.</span></span></code></pre>
+<pre><code><span><span class="co">#&gt; Warning in rm(df_geom): object 'df_geom' not found</span></span>
+<span><span class="co">#&gt; Geometry size for PAN is 2827056......</span></span>
+<span><span class="co">#&gt; An Error Occurred during geometry simplification</span></span></code></pre>
+<p><img src="get-started_files/figure-html/example-f_get_admin2_boundaries-65.png" width="700"></p>
+<pre><code><span><span class="co">#&gt; &lt;simpleError in wk_handle.wk_wkb(wkb, s2_geography_writer(oriented = oriented,     check = check, tessellate_tol = if (planar) {        tessellate_tol_m/s2_earth_radius_meters()    } else {        Inf    })): Loop 0 is not valid: Edge 1708 has duplicate vertex with edge 1713&gt;</span></span>
+<span><span class="co">#&gt; Trying to get data for Peru.</span></span></code></pre>
+<pre><code><span><span class="co">#&gt; Warning in rm(df_geom): object 'df_geom' not found</span></span>
+<span><span class="co">#&gt; Geometry size for PER is 11357328......</span></span>
+<span><span class="co">#&gt; An Error Occurred during geometry simplification</span></span></code></pre>
+<p><img src="get-started_files/figure-html/example-f_get_admin2_boundaries-66.png" width="700"></p>
+<pre><code><span><span class="co">#&gt; &lt;simpleError in wk_handle.wk_wkb(wkb, s2_geography_writer(oriented = oriented,     check = check, tessellate_tol = if (planar) {        tessellate_tol_m/s2_earth_radius_meters()    } else {        Inf    })): Loop 0 is not valid: Edge 2 has duplicate vertex with edge 8478&gt;</span></span>
+<span><span class="co">#&gt; Trying to get data for Peru.</span></span></code></pre>
+<pre><code><span><span class="co">#&gt; Warning in rm(df_geom): object 'df_geom' not found</span></span>
+<span><span class="co">#&gt; Geometry size for PER is 3870480......</span></span>
+<span><span class="co">#&gt; Simplified Geometry size for PER is 240160 aka 6.2% .....</span></span></code></pre>
+<p><img src="get-started_files/figure-html/example-f_get_admin2_boundaries-67.png" width="700"></p>
+<pre><code><span><span class="co">#&gt; Trying to get data for Puerto Rico.</span></span></code></pre>
+<pre><code><span><span class="co">#&gt; Warning in rm(df_geom): object 'df_geom' not found</span></span>
+<span><span class="co">#&gt; Geometry size for PRI is 5960......</span></span>
+<span><span class="co">#&gt; Simplified Geometry size for PRI is 5792 aka 97.18% .....</span></span></code></pre>
+<p><img src="get-started_files/figure-html/example-f_get_admin2_boundaries-68.png" width="700"></p>
+<pre><code><span><span class="co">#&gt; Trying to get data for Puerto Rico.</span></span></code></pre>
+<pre><code><span><span class="co">#&gt; Warning in rm(df_geom): object 'df_geom' not found</span></span>
+<span><span class="co">#&gt; Geometry size for PRI is 5960......</span></span>
+<span><span class="co">#&gt; Simplified Geometry size for PRI is 5792 aka 97.18% .....</span></span></code></pre>
+<p><img src="get-started_files/figure-html/example-f_get_admin2_boundaries-69.png" width="700"></p>
+<pre><code><span><span class="co">#&gt; Trying to get data for Paraguay.</span></span></code></pre>
+<pre><code><span><span class="co">#&gt; Warning in rm(df_geom): object 'df_geom' not found</span></span>
+<span><span class="co">#&gt; Geometry size for PRY is 16888248......</span></span>
+<span><span class="co">#&gt; 1 duplicate in gis_name for: PRY</span></span>
+<span><span class="co">#&gt; Simplified Geometry size for PRY is 543488 aka 3.22% .....</span></span></code></pre>
+<p><img src="get-started_files/figure-html/example-f_get_admin2_boundaries-70.png" width="700"></p>
+<pre><code><span><span class="co">#&gt; Trying to get data for Paraguay.</span></span></code></pre>
+<pre><code><span><span class="co">#&gt; Warning in rm(df_geom): object 'df_geom' not found</span></span>
+<span><span class="co">#&gt; Geometry size for PRY is 4353888......</span></span>
+<span><span class="co">#&gt; Simplified Geometry size for PRY is 107136 aka 2.46% .....</span></span></code></pre>
+<p><img src="get-started_files/figure-html/example-f_get_admin2_boundaries-71.png" width="700"></p>
+<pre><code><span><span class="co">#&gt; Trying to get data for El Salvador.</span></span></code></pre>
+<pre><code><span><span class="co">#&gt; Warning in rm(df_geom): object 'df_geom' not found</span></span>
+<span><span class="co">#&gt; Geometry size for SLV is 5429928......</span></span>
+<span><span class="co">#&gt; 6 duplicate in gis_name for: SLV</span></span>
+<span><span class="co">#&gt; Simplified Geometry size for SLV is 394784 aka 7.27% .....</span></span></code></pre>
+<p><img src="get-started_files/figure-html/example-f_get_admin2_boundaries-72.png" width="700"></p>
+<pre><code><span><span class="co">#&gt; Trying to get data for El Salvador.</span></span></code></pre>
+<pre><code><span><span class="co">#&gt; Warning in rm(df_geom): object 'df_geom' not found</span></span>
+<span><span class="co">#&gt; Geometry size for SLV is 1221536......</span></span>
+<span><span class="co">#&gt; Simplified Geometry size for SLV is 46656 aka 3.82% .....</span></span></code></pre>
+<p><img src="get-started_files/figure-html/example-f_get_admin2_boundaries-73.png" width="700"></p>
 <pre><code><span><span class="co">#&gt; Trying to get data for St. Pierre &amp; Miquelon.</span></span></code></pre>
 <pre><code><span><span class="co">#&gt; Warning in rm(df_geom): object 'df_geom' not found</span></span>
 <span><span class="co">#&gt; Geometry size for SPM is 5960......</span></span>
 <span><span class="co">#&gt; Simplified Geometry size for SPM is 5792 aka 97.18% .....</span></span></code></pre>
-<p><img src="get-started_files/figure-html/example-f_get_admin2_boundaries-40.png" width="700"></p>
-<pre><code><span><span class="co">#&gt; Trying to get data for St. Vincent &amp; Grenadines.</span></span></code></pre>
+<p><img src="get-started_files/figure-html/example-f_get_admin2_boundaries-74.png" width="700"></p>
+<pre><code><span><span class="co">#&gt; Trying to get data for St. Pierre &amp; Miquelon.</span></span></code></pre>
 <pre><code><span><span class="co">#&gt; Warning in rm(df_geom): object 'df_geom' not found</span></span>
-<span><span class="co">#&gt; Geometry size for VCT is 115888......</span></span>
-<span><span class="co">#&gt; Simplified Geometry size for VCT is 22840 aka 19.71% .....</span></span></code></pre>
-<p><img src="get-started_files/figure-html/example-f_get_admin2_boundaries-41.png" width="700"></p>
+<span><span class="co">#&gt; Geometry size for SPM is 5960......</span></span>
+<span><span class="co">#&gt; Simplified Geometry size for SPM is 5792 aka 97.18% .....</span></span></code></pre>
+<p><img src="get-started_files/figure-html/example-f_get_admin2_boundaries-75.png" width="700"></p>
 <pre><code><span><span class="co">#&gt; Trying to get data for Suriname.</span></span></code></pre>
 <pre><code><span><span class="co">#&gt; Warning in rm(df_geom): object 'df_geom' not found</span></span>
 <span><span class="co">#&gt; Geometry size for SUR is 479272......</span></span>
 <span><span class="co">#&gt; 2 duplicate in gis_name for: SUR</span></span>
 <span><span class="co">#&gt; Simplified Geometry size for SUR is 126544 aka 26.4% .....</span></span></code></pre>
-<p><img src="get-started_files/figure-html/example-f_get_admin2_boundaries-42.png" width="700"></p>
-<pre><code><span><span class="co">#&gt; Trying to get data for Trinidad &amp; Tobago.</span></span></code></pre>
+<p><img src="get-started_files/figure-html/example-f_get_admin2_boundaries-76.png" width="700"></p>
+<pre><code><span><span class="co">#&gt; Trying to get data for Suriname.</span></span></code></pre>
 <pre><code><span><span class="co">#&gt; Warning in rm(df_geom): object 'df_geom' not found</span></span>
-<span><span class="co">#&gt; Geometry size for TTO is 370032......</span></span>
-<span><span class="co">#&gt; 14 duplicate in adm2_source_code for: TTO</span></span>
-<span><span class="co">#&gt; Simplified Geometry size for TTO is 38808 aka 10.49% .....</span></span></code></pre>
-<p><img src="get-started_files/figure-html/example-f_get_admin2_boundaries-43.png" width="700"></p>
+<span><span class="co">#&gt; Geometry size for SUR is 259968......</span></span>
+<span><span class="co">#&gt; Simplified Geometry size for SUR is 46472 aka 17.88% .....</span></span></code></pre>
+<p><img src="get-started_files/figure-html/example-f_get_admin2_boundaries-77.png" width="700"></p>
+<pre><code><span><span class="co">#&gt; Trying to get data for Sint Maarten.</span></span></code></pre>
+<pre><code><span><span class="co">#&gt; Warning in rm(df_geom): object 'df_geom' not found</span></span>
+<span><span class="co">#&gt; Geometry size for SXM is 5960......</span></span>
+<span><span class="co">#&gt; Simplified Geometry size for SXM is 5792 aka 97.18% .....</span></span></code></pre>
+<p><img src="get-started_files/figure-html/example-f_get_admin2_boundaries-78.png" width="700"></p>
+<pre><code><span><span class="co">#&gt; Trying to get data for Sint Maarten.</span></span></code></pre>
+<pre><code><span><span class="co">#&gt; Warning in rm(df_geom): object 'df_geom' not found</span></span>
+<span><span class="co">#&gt; Geometry size for SXM is 24368......</span></span>
+<span><span class="co">#&gt; Simplified Geometry size for SXM is 10872 aka 44.62% .....</span></span></code></pre>
+<p><img src="get-started_files/figure-html/example-f_get_admin2_boundaries-79.png" width="700"></p>
 <pre><code><span><span class="co">#&gt; Trying to get data for Turks &amp; Caicos Islands.</span></span></code></pre>
 <pre><code><span><span class="co">#&gt; Warning in rm(df_geom): object 'df_geom' not found</span></span>
 <span><span class="co">#&gt; Geometry size for TCA is 5960......</span></span>
 <span><span class="co">#&gt; Simplified Geometry size for TCA is 5792 aka 97.18% .....</span></span></code></pre>
-<p><img src="get-started_files/figure-html/example-f_get_admin2_boundaries-44.png" width="700"></p>
-<pre><code><span><span class="co">#&gt; Trying to get data for U.S. Virgin Islands.</span></span></code></pre>
+<p><img src="get-started_files/figure-html/example-f_get_admin2_boundaries-80.png" width="700"></p>
+<pre><code><span><span class="co">#&gt; Trying to get data for Turks &amp; Caicos Islands.</span></span></code></pre>
 <pre><code><span><span class="co">#&gt; Warning in rm(df_geom): object 'df_geom' not found</span></span>
-<span><span class="co">#&gt; Geometry size for VIR is 5960......</span></span>
-<span><span class="co">#&gt; Simplified Geometry size for VIR is 5792 aka 97.18% .....</span></span></code></pre>
-<p><img src="get-started_files/figure-html/example-f_get_admin2_boundaries-45.png" width="700"></p>
+<span><span class="co">#&gt; Geometry size for TCA is 5960......</span></span>
+<span><span class="co">#&gt; Simplified Geometry size for TCA is 5792 aka 97.18% .....</span></span></code></pre>
+<p><img src="get-started_files/figure-html/example-f_get_admin2_boundaries-81.png" width="700"></p>
+<pre><code><span><span class="co">#&gt; Trying to get data for Trinidad &amp; Tobago.</span></span></code></pre>
+<pre><code><span><span class="co">#&gt; Warning in rm(df_geom): object 'df_geom' not found</span></span>
+<span><span class="co">#&gt; Geometry size for TTO is 370032......</span></span>
+<span><span class="co">#&gt; Simplified Geometry size for TTO is 38808 aka 10.49% .....</span></span></code></pre>
+<p><img src="get-started_files/figure-html/example-f_get_admin2_boundaries-82.png" width="700"></p>
+<pre><code><span><span class="co">#&gt; Trying to get data for Trinidad &amp; Tobago.</span></span></code></pre>
+<pre><code><span><span class="co">#&gt; Warning in rm(df_geom): object 'df_geom' not found</span></span>
+<span><span class="co">#&gt; Geometry size for TTO is 369544......</span></span>
+<span><span class="co">#&gt; Simplified Geometry size for TTO is 38320 aka 10.37% .....</span></span></code></pre>
+<p><img src="get-started_files/figure-html/example-f_get_admin2_boundaries-83.png" width="700"></p>
+<pre><code><span><span class="co">#&gt; Trying to get data for Uruguay.</span></span></code></pre>
+<pre><code><span><span class="co">#&gt; Warning in rm(df_geom): object 'df_geom' not found</span></span>
+<span><span class="co">#&gt; Geometry size for URY is 1214880......</span></span>
+<span><span class="co">#&gt; Simplified Geometry size for URY is 353248 aka 29.08% .....</span></span></code></pre>
+<p><img src="get-started_files/figure-html/example-f_get_admin2_boundaries-84.png" width="700"></p>
+<pre><code><span><span class="co">#&gt; Trying to get data for Uruguay.</span></span></code></pre>
+<pre><code><span><span class="co">#&gt; Warning in rm(df_geom): object 'df_geom' not found</span></span>
+<span><span class="co">#&gt; Geometry size for URY is 605208......</span></span>
+<span><span class="co">#&gt; Simplified Geometry size for URY is 67640 aka 11.18% .....</span></span></code></pre>
+<p><img src="get-started_files/figure-html/example-f_get_admin2_boundaries-85.png" width="700"></p>
 <pre><code><span><span class="co">#&gt; Trying to get data for United States.</span></span></code></pre>
 <pre><code><span><span class="co">#&gt; Warning in rm(df_geom): object 'df_geom' not found</span></span>
 <span><span class="co">#&gt; Geometry size for USA is 4486216......</span></span>
 <span><span class="co">#&gt; 1309 duplicate in gis_name for: USA</span></span>
 <span><span class="co">#&gt; Simplified Geometry size for USA is 4374648 aka 97.51% .....</span></span></code></pre>
-<p><img src="get-started_files/figure-html/example-f_get_admin2_boundaries-46.png" width="700"></p>
-<pre><code><span><span class="co">#&gt; Trying to get data for Uruguay.</span></span></code></pre>
+<p><img src="get-started_files/figure-html/example-f_get_admin2_boundaries-86.png" width="700"></p>
+<pre><code><span><span class="co">#&gt; Trying to get data for United States.</span></span></code></pre>
 <pre><code><span><span class="co">#&gt; Warning in rm(df_geom): object 'df_geom' not found</span></span>
-<span><span class="co">#&gt; Geometry size for URY is 1214880......</span></span>
-<span><span class="co">#&gt; Simplified Geometry size for URY is 353248 aka 29.08% .....</span></span></code></pre>
-<p><img src="get-started_files/figure-html/example-f_get_admin2_boundaries-47.png" width="700"></p>
+<span><span class="co">#&gt; Geometry size for USA is 309480......</span></span>
+<span><span class="co">#&gt; Simplified Geometry size for USA is 226664 aka 73.24% .....</span></span></code></pre>
+<p><img src="get-started_files/figure-html/example-f_get_admin2_boundaries-87.png" width="700"></p>
+<pre><code><span><span class="co">#&gt; Trying to get data for St. Vincent &amp; Grenadines.</span></span></code></pre>
+<pre><code><span><span class="co">#&gt; Warning in rm(df_geom): object 'df_geom' not found</span></span>
+<span><span class="co">#&gt; Geometry size for VCT is 115888......</span></span>
+<span><span class="co">#&gt; Simplified Geometry size for VCT is 22840 aka 19.71% .....</span></span></code></pre>
+<p><img src="get-started_files/figure-html/example-f_get_admin2_boundaries-88.png" width="700"></p>
+<pre><code><span><span class="co">#&gt; Trying to get data for St. Vincent &amp; Grenadines.</span></span></code></pre>
+<pre><code><span><span class="co">#&gt; Warning in rm(df_geom): object 'df_geom' not found</span></span>
+<span><span class="co">#&gt; Geometry size for VCT is 115272......</span></span>
+<span><span class="co">#&gt; Simplified Geometry size for VCT is 22224 aka 19.28% .....</span></span></code></pre>
+<p><img src="get-started_files/figure-html/example-f_get_admin2_boundaries-89.png" width="700"></p>
 <pre><code><span><span class="co">#&gt; Trying to get data for Venezuela.</span></span></code></pre>
 <pre><code><span><span class="co">#&gt; Warning in rm(df_geom): object 'df_geom' not found</span></span>
 <span><span class="co">#&gt; Geometry size for VEN is 10678984......</span></span>
 <span><span class="co">#&gt; 62 duplicate in gis_name for: VEN</span></span>
 <span><span class="co">#&gt; Simplified Geometry size for VEN is 753152 aka 7.05% .....</span></span></code></pre>
-<p><img src="get-started_files/figure-html/example-f_get_admin2_boundaries-48.png" width="700"><img src="get-started_files/figure-html/example-f_get_admin2_boundaries-49.png" width="700"></p>
+<p><img src="get-started_files/figure-html/example-f_get_admin2_boundaries-90.png" width="700"></p>
+<pre><code><span><span class="co">#&gt; Trying to get data for Venezuela.</span></span></code></pre>
+<pre><code><span><span class="co">#&gt; Warning in rm(df_geom): object 'df_geom' not found</span></span>
+<span><span class="co">#&gt; Geometry size for VEN is 4093384......</span></span>
+<span><span class="co">#&gt; Simplified Geometry size for VEN is 176232 aka 4.31% .....</span></span></code></pre>
+<p><img src="get-started_files/figure-html/example-f_get_admin2_boundaries-91.png" width="700"></p>
+<pre><code><span><span class="co">#&gt; Trying to get data for British Virgin Islands.</span></span></code></pre>
+<pre><code><span><span class="co">#&gt; Warning in rm(df_geom): object 'df_geom' not found</span></span>
+<span><span class="co">#&gt; Geometry size for VGB is 148144......</span></span>
+<span><span class="co">#&gt; Simplified Geometry size for VGB is 25240 aka 17.04% .....</span></span></code></pre>
+<p><img src="get-started_files/figure-html/example-f_get_admin2_boundaries-92.png" width="700"></p>
+<pre><code><span><span class="co">#&gt; Trying to get data for British Virgin Islands.</span></span></code></pre>
+<pre><code><span><span class="co">#&gt; Warning in rm(df_geom): object 'df_geom' not found</span></span>
+<span><span class="co">#&gt; Geometry size for VGB is 147640......</span></span>
+<span><span class="co">#&gt; Simplified Geometry size for VGB is 24736 aka 16.75% .....</span></span></code></pre>
+<p><img src="get-started_files/figure-html/example-f_get_admin2_boundaries-93.png" width="700"><img src="get-started_files/figure-html/example-f_get_admin2_boundaries-94.png" width="700"></p>
 </div>
-  </main>
+<div class="section level2">
+<h2 id="f_get_admin2_cod">f_get_admin2_cod<a class="anchor" aria-label="anchor" href="#f_get_admin2_cod"></a>
+</h2>
+<div class="sourceCode" id="cb189"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co">#GTM &lt;- f_get_admin2_cod("GTM", simplify = TRUE, dTolerance = 500)</span></span></code></pre></div>
+</div>
+  </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
+    </nav></aside>
 </div>
 
 

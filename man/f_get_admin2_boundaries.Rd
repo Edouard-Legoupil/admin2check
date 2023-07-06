@@ -4,10 +4,14 @@
 \alias{f_get_admin2_boundaries}
 \title{Get admin2 polygons from API}
 \usage{
-f_get_admin2_boundaries(ISO3, simplify = TRUE, dTolerance = 500)
+f_get_admin2_boundaries(ISO3, level, simple, simplify = TRUE, dTolerance = 500)
 }
 \arguments{
 \item{ISO3}{ISO3 code of country}
+
+\item{level}{1 or 2}
+
+\item{simple}{1 to 3 - parameter for ArcGIS API call}
 
 \item{simplify}{Logical: whether to simplify or not}
 
@@ -27,23 +31,62 @@ expected format.
 library(countrycode)
 ctr <- countrycode::codelist |>
        dplyr::filter( ! is.na(iso3c) )  |>
-       dplyr::filter(continent == "Americas" ) |>
-       dplyr::select(country.name.en, iso3c)
+       dplyr::filter(unhcr.region == "The Americas" ) |>
+       dplyr::select(country.name.en, iso3c) |>
+       dplyr::arrange( iso3c)
 ctr
 ctr <- ctr |>
        dplyr::select(iso3c)  |>
        dplyr::pull()  
- 
-# BRA <- f_get_admin2_boundaries(ISO3 = "BRA", simplify = TRUE, dTolerance = 500)
-# ECU <- f_get_admin2_boundaries(ISO3 = "ECU", simplify = TRUE, dTolerance = 500)
-# GTM <- f_get_admin2_boundaries(ISO3 = "GTM", simplify = TRUE, dTolerance = 500)
-# CRI <- f_get_admin2_boundaries(ISO3 = "CRI", simplify = TRUE, dTolerance = 500)
-# CHL <- f_get_admin2_boundaries(ISO3 = "CHL", simplify = TRUE, dTolerance = 500)
-# COL <- f_get_admin2_boundaries(ISO3 = "COL", simplify = TRUE, dTolerance = 500)
-# MEX <- f_get_admin2_boundaries(ISO3 = "MEX", simplify = TRUE, dTolerance = 500)
+## test on faulty.. with ArcGIS server simpification.. 
+BRA2 <- f_get_admin2_boundaries( ISO3 = "BRA",
+                                level = 2,
+                                 simple = 1, 
+                                simplify = TRUE,
+                                dTolerance = 500)
+
+# ECU <- f_get_admin2_boundaries(ISO3 = "ECU",level = 2, simplify = TRUE, dTolerance = 500)
+# GTM <- f_get_admin2_boundaries(ISO3 = "GTM",level = 2, simplify = TRUE, dTolerance = 500)
+# GTM1 <- f_get_admin2_boundaries(ISO3 = "GTM",level = 1, simple = NULL, simplify = TRUE, dTolerance = 500)
+# CRI <- f_get_admin2_boundaries(ISO3 = "CRI",level = 2, simplify = TRUE, dTolerance = 500)
+# CHL <- f_get_admin2_boundaries(ISO3 = "CHL",level = 2, simplify = TRUE, dTolerance = 500)
+# COL <- f_get_admin2_boundaries(ISO3 = "COL",level = 2, simplify = TRUE, dTolerance = 500)
+# MEX <- f_get_admin2_boundaries(ISO3 = "MEX",level = 2, simplify = TRUE, dTolerance = 500)
 
 
-for ( code  in ctr )
-{ #cat (paste0(code,"\n"))
-  t <- f_get_admin2_boundaries(ISO3 = code, simplify = TRUE, dTolerance = 500) }
+for ( code  in ctr ) { 
+  # code <- "GTM"
+  #cat (paste0(code,"\n"))
+  t2 <- f_get_admin2_boundaries(ISO3 = code,
+                               level = 2,
+                               simple = NULL,
+                               simplify = TRUE, 
+                               dTolerance = 500) 
+  t1 <- f_get_admin2_boundaries(ISO3 = code,
+                               level = 1,
+                               simple = NULL,
+                               simplify = TRUE, 
+                               dTolerance = 500) 
+  ## Merge back aadm1_name in t2
+  if ( any( class(t2) !="character" &
+            nrow(t2) > 0 &
+            class(t1) !="character" &
+            nrow(t1) > 0  ) ) {
+      t2 |>
+      dplyr::mutate(adm1_pcode = as.character(adm1_pcode)) |>
+      dplyr::left_join( t1 |>
+                        sf::st_drop_geometry() |>
+                        dplyr::select(pcode, gis_name) |>
+                        dplyr::distinct() |>
+                        dplyr::rename(adm1_pcode = pcode,
+                                      adm1_name = gis_name ) |>
+                        dplyr::mutate(adm1_pcode = as.character(adm1_pcode)) ,
+          by = c("adm1_pcode")) |>
+          dplyr::select(iso3, pcode, gis_name, adm2_source_code, 
+                        adm1_pcode,adm1_name,
+                        gis_status,source, src_date,  geometry ) |>
+          dplyr::filter(gis_status == 14 ) |>
+          saveRDS(  file = here::here("inst/geom", paste0(code,".RDS") ))
+     }
+  }
 }
